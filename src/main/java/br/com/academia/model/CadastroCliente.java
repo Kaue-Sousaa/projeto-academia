@@ -1,7 +1,5 @@
 package br.com.academia.model;
 
-import java.time.LocalDate;
-
 import br.com.academia.dto.CadastroClienteDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,11 +24,8 @@ public class CadastroCliente {
 	@SequenceGenerator(name = "seq_cadastro_cliente", sequenceName = "academia.seq_cadastro_cliente", initialValue = 1, allocationSize = 1)
 	private Integer id;
 	
-	@Column(name = "nome")
+	@Column(name = "nome", nullable = false)
 	private String nome;
-	
-	@Column(name = "rg",unique = true, nullable = false)
-	private String rg;
 	
 	@Column(name = "cpf", unique = true, nullable = false)
 	private String cpf;
@@ -39,7 +34,7 @@ public class CadastroCliente {
 	private String sexo;
 	
 	@Column(name = "dt_nascimento",nullable = false)
-	private LocalDate dtNascimento;
+	private String dtNascimento;
 	
 	@Column(name = "peso")
 	private Float peso;
@@ -73,4 +68,24 @@ public class CadastroCliente {
 	
 	@Column(name = "estado")
 	private String estado;
+	
+	
+	public CadastroCliente(CadastroClienteDto cadastroDto) {
+			this.id = null;
+			this.nome = cadastroDto.nome();
+			this.cpf = cadastroDto.cpf();
+			this.sexo = cadastroDto.sexo();
+			this.dtNascimento = cadastroDto.dtNascimento();
+			this.peso = cadastroDto.peso();
+			this.altura = cadastroDto.altura();
+			this.gorduraCorporal = cadastroDto.gorduraCorporal();
+			this.telefone = cadastroDto.telefone();
+			this.celular = cadastroDto.celular();
+			this.email = cadastroDto.email();
+			this.bairro = cadastroDto.bairro();
+			this.cep = cadastroDto.cep();
+			this.endereco = cadastroDto.endereco();
+			this.cidade = cadastroDto.cidade();
+			this.estado = cadastroDto.estado();
+	}
 }

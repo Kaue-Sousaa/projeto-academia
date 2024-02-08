@@ -4,21 +4,23 @@ import java.time.LocalDate;
 
 import br.com.academia.model.CadastroCliente;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public record CadastroClienteDto(
+		
+		Integer id,
 		
 		@NotBlank
 		String nome,
 
-		String rg,
-		
 		@NotBlank
+		@Size(min = 11)
 		String cpf,
 
 		String sexo,
 		
 		@NotBlank
-		LocalDate dtNascimento,
+		String dtNascimento,
 
 		Float peso,
 
@@ -46,8 +48,8 @@ public record CadastroClienteDto(
 	
 	public CadastroClienteDto(CadastroCliente entity) {
 		this ( 
+				entity.getId(),
 				entity.getNome(),
-				entity.getRg(),
 				entity.getCpf(),
 				entity.getSexo(),
 				entity.getDtNascimento(),
