@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.academia.dto.CadastroClienteDto;
@@ -17,18 +18,19 @@ import br.com.academia.service.CadastroClienteService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequestMapping("cliente")
 @RequiredArgsConstructor
 public class CadastroClienteController{
 
 	private final CadastroClienteService cadastroService;
 	
-	@GetMapping(value = "cliente/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<CadastroClienteDto> buscarCliente(@PathVariable Integer id) throws Exception {
+	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<CadastroClienteDto> buscarCliente(@PathVariable Integer id) {
 		return ResponseEntity.ok(cadastroService.buscarCadastroPorId(id));
 	}
 	
-	@GetMapping(value = "clientes")
-	public ResponseEntity<List<CadastroClienteDto>> buscarTodosCliente() throws Exception {
+	@GetMapping
+	public ResponseEntity<List<CadastroClienteDto>> buscarTodosCliente() {
 		return ResponseEntity.ok(cadastroService.buscarTodosCadastro());
 	}
 	
@@ -47,7 +49,7 @@ public class CadastroClienteController{
 	}
 	
 	@DeleteMapping(value = "deletar/{id}")
-	public void deletarCliente(Integer id) {
+	public void deletarCliente(@PathVariable Integer id) {
 		cadastroService.deletarCliente(id);
 	}
 }
