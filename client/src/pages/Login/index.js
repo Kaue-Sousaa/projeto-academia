@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import './styles.css';
 
+import logo from '../../assets/favicon.png'
+
 export default function  Login(){
     const [cpf, setCpf] = useState('');
 
@@ -12,6 +14,10 @@ export default function  Login(){
 
     return (
         <div className="login-container">
+            <div className="img-container">
+                <img src={logo}/>
+                <p>Metabolism</p>
+            </div>
             <section className="form">
                 <form>
                     <h1>Login</h1>
