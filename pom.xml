@@ -60,15 +60,7 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		 <!-- PrimeFaces -->
-	    <dependency>
-	        <groupId>org.primefaces</groupId>
-	        <artifactId>primefaces</artifactId>
-	        <version>13.0.5</version>
-	    </dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
