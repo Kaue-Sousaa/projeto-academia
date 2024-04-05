@@ -1,37 +1,102 @@
-import React from 'react';
+import React from "react";
 
-import './styles.css'
+import Heade from "../../component/Header";
+import musculacao from "../../assets/musculacao.png";
+import karate from "../../assets/karate.png";
+import esteira from "../../assets/esteira.png";
+import Foooter from "../../component/Footer";
 
-export default function HomeWeb(){
-    return (
-    <div className="home-page">
-      <header className="header">
-        <h1>Bem-vindo à Academia Metabolism</h1>
-        <p>Transforme seu corpo, transforme sua vida!</p>
-      </header>
-      <section className="about-section">
-        <h2>Sobre Nós</h2>
-        <p>A Academia Metabolism é dedicada a ajudar você a atingir seus objetivos de fitness. Oferecemos uma variedade de programas de treinamento, equipamentos de última geração e instrutores experientes para ajudá-lo em sua jornada de fitness.</p>
-      </section>
-      <section className="services-section">
-        <h2>Nossos Serviços</h2>
-        <ul>
-          <li>Aulas de grupo</li>
-          <li>Personal Training</li>
-          <li>Equipamentos de última geração</li>
-          <li>Programas de treinamento personalizado</li>
-          <li>Sauna e Spa</li>
-        </ul>
-      </section>
-      <section className="contact-section">
-        <h2>Entre em Contato</h2>
-        <p>Estamos ansiosos para ajudá-lo a começar sua jornada de Metabolism. Entre em contato conosco para mais informações ou para agendar uma visita.</p>
-        <p>Telefone: (XX) XXXX-XXXX</p>
-        <p>Email: info@academiametabolism.com</p>
-      </section>
-      <footer className="footer">
-        <p>&copy; 2024 Academia Metabolism. Todos os direitos reservados.</p>
-      </footer>
+import "./styles.css";
+
+export default function HomeWeb() {
+  return (
+    <div className="principal">
+      <div className="fundo">
+        <Heade></Heade>
+        <section className="text">
+          <div>
+            <h2 className="special-blue">WHAT'S SPECIAL?</h2>
+            <p>THE EVOLUTION OF OUR CUSTOMERS COMES FIRST</p>
+          </div>
+        </section>
+        <div className="esports">
+          <section className="services">
+            <div>
+              <img src={karate} alt="Karate" />
+              <h2>Martial Arts</h2>
+              <p>
+                Train Judo Free with sensei <br />
+                Matheus Luna
+              </p>
+            </div>
+            <div>
+              <img src={musculacao} alt="Musculacao" />
+              <h2>
+                Professional <br />
+                Training
+              </h2>
+              <p>
+                Be guied by trained and prepared <br />
+                professionals to serve you.{" "}
+              </p>
+            </div>
+            <div>
+              <img src={esteira} alt="Funcional" />
+              <h2>Functional</h2>
+              <p>
+                We offer several functional activities <br />
+                such as dance, swimming, karate and <br /> more.
+              </p>
+            </div>
+          </section>
+        </div>
+        <div className="register">
+          <h1>DOWNLOAD OUR APP AND CONTACT US NOW FOR MORE OFFERS</h1>
+          <h2>WHERE HEALTH AND BEAUTY FITNESS ARE.</h2>
+
+          <a href="/register">
+            <button>Go to Register</button>
+          </a>
+        </div>
+
+        <section className="plans">
+          <a href="/">
+            <div>
+              <h2>Mensal Plan</h2>
+              <h1>$ 50,99</h1>
+              <p>Monday to Saturday</p>
+              <p>2 Daily Hours</p>
+              <p>All Equipment</p>
+              <button>Cadastre-se</button>
+            </div>
+          </a>
+          <a href="/">
+            <div>
+              <h2>Quarterly Plan</h2>
+              <h1>$ 40,99</h1>
+              <p>Monday</p>
+              <p>4 Daily Hours</p>
+              <p>All Equipment</p>
+              <p>Body evaluation bimonthly</p>
+              <p>One plan diet</p>
+              <button>Cadastre-se</button>
+            </div>
+          </a>
+          <a href="/">
+            <div>
+              <h2>Anual Plan</h2>
+              <h1>$ 36,99</h1>
+              <p>Monday to Saturday</p>
+              <p>All hours the day</p>
+              <p>All Equipment</p>
+              <p>Body evaluation mensal</p>
+              <p>Plan diet mensal</p>
+              <button>Cadastre-se</button>
+            </div>
+          </a>
+        </section>
+        <Foooter />
+      </div>
     </div>
-      );
+  );
 }
