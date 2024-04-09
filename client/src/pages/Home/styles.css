@@ -79,8 +79,8 @@ span {
   text-align: center;
   position: relative;
   font-size: medium;
-  height: 50vh;
-  top: 50px;
+  height: 91vh;
+  top: 215px;
 }
 
 .text div {
@@ -150,6 +150,7 @@ span {
   bottom: 20px;
 }
 .register h1 {
+  color: #fff;
   margin: 10% 0px 12px 0px;
   width: 100%;
   max-width: 1920px;
@@ -218,7 +219,6 @@ button:hover {
   height: 400px;
   display: block;
   text-align: center;
-  margin: 5% 0px 0px 0px;
   padding: 1%;
   position: relative;
   bottom: 80px;
