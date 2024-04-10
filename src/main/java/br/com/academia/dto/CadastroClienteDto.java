@@ -1,46 +1,21 @@
 package br.com.academia.dto;
 
 import br.com.academia.model.CadastroCliente;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 public record CadastroClienteDto(
-		
 		Integer id,
 		
-		@NotBlank
 		String nome,
-
-		@NotBlank
-		@Size(min = 11)
-		String cpf,
-
-		String sexo,
 		
-		@NotBlank
-		String dtNascimento,
-
-		Float peso,
-
-		Float altura,
-
-		Float gorduraCorporal,
-
-		String telefone,
-
-		String celular,
-
+		String sobreNome,
+		
 		String email,
-
-		String bairro,
-
-		String cep,
-
-		String endereco,
-
-		String cidade,
-
-		String estado
+		
+		String cpf,
+		
+		String dtNascimento,
+		
+		String telefone
 		
 		) {
 	
@@ -48,20 +23,11 @@ public record CadastroClienteDto(
 		this ( 
 				entity.getId(),
 				entity.getNome(),
-				entity.getCpf(),
-				entity.getSexo(),
-				entity.getDtNascimento(),
-				entity.getPeso(),
-				entity.getAltura(),
-				entity.getGorduraCorporal(),
-				entity.getTelefone(),
-				entity.getCelular(),
+				entity.getSobreNome(),
 				entity.getEmail(),
-				entity.getBairro(),
-				entity.getCep(),
-				entity.getEndereco(),
-				entity.getCidade(),
-				entity.getEstado()
+				entity.getCpf(),
+				entity.getDtNascimento(),
+				entity.getTelefone()
 			);
 	}
 	

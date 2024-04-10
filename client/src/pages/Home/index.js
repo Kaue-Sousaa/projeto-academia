@@ -60,17 +60,17 @@ export default function HomeWeb() {
         </div>
 
         <section className="plans">
-          <a href="/">
+          <a href="/register">
             <div>
               <h2>Mensal Plan</h2>
               <h1>$ 50,99</h1>
               <p>Monday to Saturday</p>
               <p>2 Daily Hours</p>
               <p>All Equipment</p>
-              <button>Cadastre-se</button>
+              <button>Matricule-se</button>
             </div>
           </a>
-          <a href="/">
+          <a href="/register">
             <div>
               <h2>Quarterly Plan</h2>
               <h1>$ 40,99</h1>
@@ -79,10 +79,10 @@ export default function HomeWeb() {
               <p>All Equipment</p>
               <p>Body evaluation bimonthly</p>
               <p>One plan diet</p>
-              <button>Cadastre-se</button>
+              <button>Matricule-se</button>
             </div>
           </a>
-          <a href="/">
+          <a href="/register">
             <div>
               <h2>Anual Plan</h2>
               <h1>$ 36,99</h1>
@@ -91,7 +91,7 @@ export default function HomeWeb() {
               <p>All Equipment</p>
               <p>Body evaluation mensal</p>
               <p>Plan diet mensal</p>
-              <button>Cadastre-se</button>
+              <button>Matricule-se</button>
             </div>
           </a>
         </section>

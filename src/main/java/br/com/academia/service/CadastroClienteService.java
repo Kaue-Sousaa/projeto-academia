@@ -43,19 +43,9 @@ public class CadastroClienteService{
 			
 			entity.setNome(cliente.nome());
 			entity.setCpf(cliente.cpf());
-			entity.setSexo(cliente.sexo());
 			entity.setDtNascimento(cliente.dtNascimento());
-			entity.setPeso(cliente.peso());
-			entity.setAltura(cliente.altura());
-			entity.setGorduraCorporal(cliente.gorduraCorporal());
 			entity.setTelefone(cliente.telefone());
-			entity.setCelular(cliente.celular());
 			entity.setEmail(cliente.email());
-			entity.setBairro(cliente.bairro());
-			entity.setCep(cliente.cep());
-			entity.setEndereco(cliente.endereco());
-			entity.setCidade(cliente.cidade());
-			entity.setEstado(cliente.estado());
 			
 			clienteRepository.save(entity);
 			return new CadastroClienteDto(entity);

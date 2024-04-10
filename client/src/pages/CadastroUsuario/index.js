@@ -5,11 +5,11 @@ import "./styles.css";
 export default function Registro() {
   return (
     <div className="registro-container">
-      <h1>Cadastro</h1>
-      <p>
-        Já tem cadastro? <a href="/">Clique aqui</a> para fazer o login.
-      </p>
       <form className="formulario-registro">
+        <h1>Cadastro</h1>
+        <p>
+          Já tem cadastro? <a href="/">Clique aqui</a> para fazer o login.
+        </p>
         <input type="text" name="nome" id="idNomeCompleto" placeholder="nome" />
         <input
           type="text"
@@ -27,17 +27,19 @@ export default function Registro() {
         />
         <input type="text" placeholder="Nacionalidade" />
         <input type="text" placeholder="DDI*" />
-        <div>
-          <label htmlFor="masc">Masculino</label>
-          <input type="radio" id="masc" name="gender" value="male" />
-        </div>
-        <div>
-          <label htmlFor="fem">Feminino</label>
-          <input type="radio" id="fem" name="gender" value="fem" />
-        </div>
-        <div>
-          <label htmlFor="outro">Outro</label>
-          <input type="radio" id="outro" name="gender" value="outro" />
+        <div className="genero-container">
+          <div>
+            <label htmlFor="masc">Masculino</label>
+            <input type="radio" id="masc" name="gender" value="male" />
+          </div>
+          <div>
+            <label htmlFor="fem">Feminino</label>
+            <input type="radio" id="fem" name="gender" value="fem" />
+          </div>
+          <div>
+            <label htmlFor="outro">Outro</label>
+            <input type="radio" id="outro" name="gender" value="outro" />
+          </div>
         </div>
         <button>Criar Conta</button>
       </form>

@@ -27,65 +27,28 @@ public class CadastroCliente {
 	@Column(name = "nome", nullable = false)
 	private String nome;
 	
+	@Column(name = "sobre_nome", nullable = false)
+	private String sobreNome;
+	
+	@Column(name = "email", nullable = false)
+	private String email;
+	
 	@Column(name = "cpf", unique = true, nullable = false)
 	private String cpf;
-	
-	@Column(name = "sexo")
-	private String sexo;
 	
 	@Column(name = "dt_nascimento",nullable = false)
 	private String dtNascimento;
 	
-	@Column(name = "peso")
-	private Float peso;
-	
-	@Column(name = "altura")
-	private Float altura;
-	
-	@Column(name = "gordura_corporal")
-	private Float gorduraCorporal;
-	
-	@Column(name = "telefone")
+	@Column(name = "DDI")
 	private String telefone;
-	
-	@Column(name = "celular")
-	private String celular;
-	
-	@Column(name = "email")
-	private String email;
-	
-	@Column(name = "bairro")
-	private String bairro;
-	
-	@Column(name = "cep")
-	private String cep;
-	
-	@Column(name = "endereco")
-	private String endereco;
-	
-	@Column(name = "cidade")
-	private String cidade;
-	
-	@Column(name = "estado")
-	private String estado;
-	
 	
 	public CadastroCliente(CadastroClienteDto cadastroDto) {
 			this.id = null;
 			this.nome = cadastroDto.nome();
-			this.cpf = cadastroDto.cpf();
-			this.sexo = cadastroDto.sexo();
-			this.dtNascimento = cadastroDto.dtNascimento();
-			this.peso = cadastroDto.peso();
-			this.altura = cadastroDto.altura();
-			this.gorduraCorporal = cadastroDto.gorduraCorporal();
-			this.telefone = cadastroDto.telefone();
-			this.celular = cadastroDto.celular();
+			this.sobreNome = cadastroDto.sobreNome();
 			this.email = cadastroDto.email();
-			this.bairro = cadastroDto.bairro();
-			this.cep = cadastroDto.cep();
-			this.endereco = cadastroDto.endereco();
-			this.cidade = cadastroDto.cidade();
-			this.estado = cadastroDto.estado();
+			this.cpf = cadastroDto.cpf();
+			this.dtNascimento = cadastroDto.dtNascimento();
+			this.telefone = cadastroDto.telefone();
 	}
 }
