@@ -30,30 +30,30 @@ export default function Foooter() {
         </div>
       </section>
       <footer>
+        <div className="redes">
+          <h1 className="bio">
+            Metabolism <span> Fitness</span>
+          </h1>
+          <div className="sociais">
+            <div>
+              <img src={insta} alt="Instagram" />
+              <p>@metabolismfitness</p>
+            </div>
+            <div>
+              <img src={face} alt="Facebook" />
+              <p>Metabolism Fitness</p>
+            </div>
+            <div>
+              <img src={whats} alt="Whatsapp" />
+              <p>(85) 98161-3615</p>
+            </div>
+          </div>
+        </div>
+
         <div className="end">
-          <a href="/">
-            <h1 className="bio">
-              Metabolism <span> Fitness</span>
-            </h1>
-          </a>
           <p className="copy">
             @2024 Academia Metabolism. Todos os direitos reservados.
           </p>
-        </div>
-
-        <div className="redes">
-          <div>
-            <img src={insta} alt="Instagram" />
-            <p>@metabolismfitness</p>
-          </div>
-          <div>
-            <img src={face} alt="Facebook" />
-            <p>Metabolism Fitness</p>
-          </div>
-          <div>
-            <img src={whats} alt="Whatsapp" />
-            <p>(85) 98161-3615</p>
-          </div>
         </div>
       </footer>
     </div>

@@ -23,9 +23,8 @@ section h2 {
 
 .principal {
   width: 100%;
-  max-width: 1920px;
-  border: px solid green !important;
 }
+
 p {
   background: none;
   color: white;
@@ -42,10 +41,8 @@ span {
 .section-container {
   background: none;
   width: 100%;
-  max-width: 1920px;
   position: relative;
   top: 200px;
-  max-width: 20%;
   left: 65%;
 }
 
@@ -60,19 +57,18 @@ span {
 }
 .section-container div h1 {
   width: 100%;
-  max-width: 350px;
 }
 
 .fundo {
   background-image: url(../../assets/fundo-home.jpg);
+  background-repeat: no-repeat ;
+  background-size: 100% 1100px;
   width: 100%;
-  max-width: 1920px;
-  max-height: 749px;
+  background-color: #16171b;
   height: 100%;
 }
 .text {
   width: 100%;
-  max-width: 1920px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,8 +86,8 @@ span {
 }
 .esports {
   background: none;
+  background-color: #16171b;
   width: 100%;
-  max-width: 1920px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -129,7 +125,7 @@ span {
 }
 .services div {
   width: 100%;
-  max-width: 1920px;
+  
   display: table;
   background-color: #1071a8;
   margin: 0 auto;
@@ -141,7 +137,7 @@ span {
 }
 .services {
   width: 100%;
-  max-width: 1920px;
+  
   display: flex;
   margin: 0 auto;
   padding: 1%;
@@ -153,13 +149,13 @@ span {
   color: #fff;
   margin: 10% 0px 12px 0px;
   width: 100%;
-  max-width: 1920px;
+  
   background: none;
   font-weight: 500;
 }
 .register h2 {
   width: 100%;
-  max-width: 1920px;
+  
   background: none;
   color: white;
   font-size: 18px;
@@ -214,9 +210,10 @@ button:hover {
 }
 .register {
   background-image: url(../../assets/homem-fundo.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 800px;
   width: 100%;
-  max-width: 1920px;
-  height: 400px;
+  height: 500px;
   display: block;
   text-align: center;
   padding: 1%;
@@ -226,7 +223,7 @@ button:hover {
 
 .plans {
   width: 100%;
-  max-width: 1920px;
+  
   display: flex;
   align-items: center;
   justify-content: center;
