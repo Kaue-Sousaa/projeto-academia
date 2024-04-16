@@ -9,24 +9,30 @@ import "./styles.css";
 
 export default function Foooter() {
   return (
-    <div className="container">
+    <div className="footer-container">
       <section className="faixa">
-        <div>
+        <div className="paragraph">
           <img src={gps} alt="Localization" />
-          <p>R.Paulo José de Macêdo, 17</p> <br />
-          <p>Bairro São Benedito</p>
+          <div>
+            <p>R.Paulo José de Macêdo, 17</p>
+            <p>Bairro São Benedito</p>
+          </div>
         </div>
-        <div>
+        <div className="paragraph">
           <img src={phone} alt="Contact" />
-          <p>(85) 98161-3615</p>
+          <div>
+            <p>(85) 98161-3615</p>
+          </div>
         </div>
-        <div>
+        <div className="paragraph">
           <img src={email} alt="Email" />
-          <p>
-            metabolismfitness
-            <br />
-            @gmail.com
-          </p>
+          <div>
+            <p>
+              metabolismfitness
+              <br />
+              @gmail.com
+            </p>
+          </div>
         </div>
       </section>
       <footer>

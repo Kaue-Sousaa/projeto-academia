@@ -15,7 +15,6 @@ export default function HomeWeb() {
         <Heade></Heade>
         <section className="text">
           <div>
-            <h2 className="special-blue">WHAT'S SPECIAL?</h2>
             <p>THE EVOLUTION OF OUR CUSTOMERS COMES FIRST</p>
           </div>
         </section>
@@ -51,46 +50,54 @@ export default function HomeWeb() {
           </section>
         </div>
         <div className="register">
-          <h1>DOWNLOAD OUR APP AND CONTACT US NOW FOR MORE OFFERS</h1>
-          <h2>WHERE HEALTH AND BEAUTY FITNESS ARE.</h2>
+          <div>
+            <h1>DOWNLOAD OUR APP AND CONTACT US NOW FOR MORE OFFERS</h1>
+            <h2>WHERE HEALTH AND BEAUTY FITNESS ARE.</h2>
 
-          <a href="/register">
-            <button>Go to Register</button>
-          </a>
+            <a href="/register">
+              <button>Go to Register</button>
+            </a>
+          </div>
         </div>
 
         <section className="plans">
           <a href="/register">
-            <div>
-              <h2>Mensal Plan</h2>
-              <h1>$ 50,99</h1>
-              <p>Monday to Saturday</p>
-              <p>2 Daily Hours</p>
-              <p>All Equipment</p>
+            <div className="mensal">
+              <div>
+                <h2>Mensal Plan</h2>
+                <h1>$ 50,99</h1>
+                <p>Monday to Saturday</p>
+                <p>2 Daily Hours</p>
+                <p>All Equipment</p>
+              </div>
               <button>Matricule-se</button>
             </div>
           </a>
           <a href="/register">
-            <div>
-              <h2>Quarterly Plan</h2>
-              <h1>$ 40,99</h1>
-              <p>Monday</p>
-              <p>4 Daily Hours</p>
-              <p>All Equipment</p>
-              <p>Body evaluation bimonthly</p>
-              <p>One plan diet</p>
+            <div className="mensal">
+              <div>
+                <h2>Quarterly Plan</h2>
+                <h1>$ 40,99</h1>
+                <p>Monday</p>
+                <p>4 Daily Hours</p>
+                <p>All Equipment</p>
+                <p>Body evaluation bimonthly</p>
+                <p>One plan diet</p>
+              </div>
               <button>Matricule-se</button>
             </div>
           </a>
           <a href="/register">
-            <div>
-              <h2>Anual Plan</h2>
-              <h1>$ 36,99</h1>
-              <p>Monday to Saturday</p>
-              <p>All hours the day</p>
-              <p>All Equipment</p>
-              <p>Body evaluation mensal</p>
-              <p>Plan diet mensal</p>
+            <div className="mensal">
+              <div>
+                <h2>Anual Plan</h2>
+                <h1>$ 36,99</h1>
+                <p>Monday to Saturday</p>
+                <p>All hours the day</p>
+                <p>All Equipment</p>
+                <p>Body evaluation mensal</p>
+                <p>Plan diet mensal</p>
+              </div>
               <button>Matricule-se</button>
             </div>
           </a>

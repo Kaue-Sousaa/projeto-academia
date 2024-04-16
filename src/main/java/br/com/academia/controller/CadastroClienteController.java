@@ -48,7 +48,7 @@ public class CadastroClienteController{
 		return ResponseEntity.ok(cadastroService.atualizarCadastro(cadastro));
 	}
 	
-	@DeleteMapping(value = "deletar/{id}")
+	@DeleteMapping(value = "{id}")
 	public void deletarCliente(@PathVariable Integer id) {
 		cadastroService.deletarCliente(id);
 	}

@@ -14,8 +14,16 @@ public record CadastroClienteDto(
 		String cpf,
 		
 		String dtNascimento,
+	
+		String telefone,
 		
-		String telefone
+		String genero,
+		
+		String senha,
+		
+		String confirmSenha,
+		
+		String role
 		
 		) {
 	
@@ -27,7 +35,11 @@ public record CadastroClienteDto(
 				entity.getEmail(),
 				entity.getCpf(),
 				entity.getDtNascimento(),
-				entity.getTelefone()
+				entity.getTelefone(),
+				entity.getGenero(),
+				entity.getSenha(),
+				entity.getConfirmSenha(),
+				entity.getRole()
 			);
 	}
 	

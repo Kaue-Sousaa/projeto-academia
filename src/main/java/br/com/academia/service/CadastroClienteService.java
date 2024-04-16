@@ -46,11 +46,12 @@ public class CadastroClienteService{
 			entity.setDtNascimento(cliente.dtNascimento());
 			entity.setTelefone(cliente.telefone());
 			entity.setEmail(cliente.email());
+			entity.setGenero(cliente.genero());
 			
 			clienteRepository.save(entity);
 			return new CadastroClienteDto(entity);
 		} catch (Exception e) {
-			return null;
+			throw new ResourceNotFoundException(e.getMessage());
 		}
 	}
 	
