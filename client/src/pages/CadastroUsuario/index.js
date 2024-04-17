@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Col, Row } from "react-bootstrap";
 
-import api from '../../services/api'
+import api from "../../services/api";
 
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
 import "./styles.css";
+import { useLocation } from "react-router-dom";
 
 export default function RegistroUsuario() {
   const [nome, setNome] = useState("");
@@ -17,8 +18,14 @@ export default function RegistroUsuario() {
   const [genero, setGenero] = useState("");
   const [role, setRole] = useState("");
 
+  const [plano, setPlano] = useState(null);
 
-  
+  const location = useLocation();
+  useEffect(() => {
+    if (location?.state?.plano) {
+      setPlano(location?.state?.plano);
+    }
+  }, []);
 
   return (
     <div className="registro-container">
@@ -158,6 +165,25 @@ export default function RegistroUsuario() {
             Registrar
           </Button>
         </Form>
+        <section className="plano">
+          <a href="#">
+            <div className="mensal">
+              {plano !== null ? (
+                <div>
+                  <h2>{plano?.tipo}</h2>
+                  <h1>{plano?.value}</h1>
+                  {plano?.descricao?.map((item) => (
+                    <p>{item}</p>
+                  ))}
+                </div>
+              ) : (
+                <div>
+                  <h2>Escolha seu plano:</h2>
+                </div>
+              )}
+            </div>
+          </a>
+        </section>
       </div>
       <Footer />
     </div>
