@@ -1,283 +1,185 @@
-* {
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  box-sizing: border-box;
+.header {
+  background-image: url(../../assets/with\ us.jpg);
+  height: 100vh;
 }
-.name-blue {
-  color: #1071a8;
-}
-
-.special-blue {
-  background-color: #16171b;
-  color: #1071a8;
-  bottom: 10px;
-  position: relative;
-}
-
-section h2 {
+.header h2 {
+  background: none;
   display: flex;
   text-align: center;
   justify-content: center;
-}
-
-.principal {
-  width: 100%;
-}
-
-p {
-  background: none;
-  color: white;
-  font-size: 23px;
-  padding: 7px;
-}
-h1 {
-  font-size: 27px;
-  width: 100%;
+  font-size: 50px;
+  color: #ffffff;
+  position: relative;
+  top: 30px;
 }
 span {
   background: none;
+  margin: 0% 0% 0% 1%;
 }
-.section-container {
-  background: none;
+.Container {
+  float: left;
+  height: 400px;
   width: 100%;
-  position: relative;
-  top: 200px;
-  left: 65%;
+  background-color: rgb(48, 47, 47);
+  margin-top: 100px;
 }
+.Container .Item1 {
+  width: 35%;
+  margin-left: 50px;
+  margin-top: 35px;
+  float: left;
 
-.section-container div {
-  display: table;
-  width: 300px;
-  position: relative;
-  top: -200px;
-  left: 31%;
-  background: none;
-  font-size: medium;
+  height: 340px;
 }
-.section-container div h1 {
-  width: 100%;
-}
-
-.fundo {
-  background-image: url(../../assets/fundo-home.jpg);
-  background-repeat: no-repeat;
-  background-size: 100% 1100px;
-  width: 100%;
-  background-color: #16171b;
-  height: 100%;
-}
-
-.text {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.Container .Item2 {
+  float: right;
   text-align: center;
-  position: relative;
-  font-size: medium;
-  height: 91vh;
-}
-
-.text div {
-  position: relative;
-}
-
-.text div p {
-  margin: auto;
-}
-
-.esports {
+  margin-right: 200px;
+  margin-top: 35px;
   background: none;
-  background-color: #16171b;
-  width: 100%;
+}
+.Container h2 {
+  margin: 5% 15% 5% 20%;
+  background: none;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.esports h2 {
   text-align: center;
-  font-weight: 500;
+  justify-content: center;
+  font-size: 30px;
+  color: #ffffff;
 }
-
-.services img {
-  width: 100%;
-  max-width: 120px;
-  height: 100%;
-  max-height: 100px;
-  background-color: #1071a8;
-  position: relative;
-}
-.services h2 {
-  background-color: #1071a8;
+.Container span {
+  background: none;
+  margin: 0% 0% 0% 0%;
   font-size: 20px;
-  position: relative;
-  top: 10px;
-  display: flex;
-  text-align: center;
 }
-.services div p {
-  color: black;
-  background-color: #1071a8;
-  font-size: 18px;
-  position: relative;
-  top: 10px;
-}
-.services div {
-  width: 100%;
 
-  display: table;
-  background-color: #1071a8;
-  margin: 0 auto;
-  text-align: center;
-}
-.services div img {
-  display: flex;
-  margin: 0 auto;
-}
-.services {
-  width: 100%;
-  display: flex;
-  margin: 0 auto;
-  padding: 1%;
-  background-color: #1071a8;
-  position: relative;
-}
-.register h1 {
-  color: #fff;
-  margin: 10% 0px 12px 0px;
-  width: 100%;
+/**********************************/
 
+.skills {
+  width: 450px;
+  margin-left: 720px;
+  margin-top: 160px;
+  color: white;
   background: none;
-  font-weight: 500;
 }
-.register h2 {
-  width: 100%;
+.skills h3 {
   background: none;
-  color: white;
-  font-size: 18px;
-  font-weight: 500;
 }
-button {
-  border: 1px solid yellow;
-  margin: 4%;
-  width: 250px;
-  font-size: 14px;
-  padding: 10px 25px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  border: 2px solid #3866a3;
-  background: #1071a8;
-  background: linear-gradient(top, #63b8ee, #468ccf);
-  background: -ms-linear-gradient(top, #63b8ee, #468ccf);
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#63b8ee),
-    to(#468ccf)
-  );
-  background: -moz-linear-gradient(top, #63b8ee, #468ccf);
-  color: white;
+.skills li {
+  margin: 40px 0;
+  background: none;
+}
+.bar {
+  background: #353b48;
+  display: block;
+
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 0 10px #2187e7b3;
+}
+.bar span {
+  height: 4px;
+  float: left;
+  background: #2187e7b3;
+}
+.fisico {
+  width: 95%;
+  animation: fisico 3s;
+}
+.postura {
+  width: 85%;
+  animation: postura 3s;
+}
+.dedicaçao {
+  width: 98%;
+  animation: dedicaçao 3s;
+}
+@keyframes fisico {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 95%;
+  }
+}
+@keyframes postura {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 80%;
+  }
+}
+@keyframes dedicaçao {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 90%;
+  }
 }
 
-.btn-top {
-  color: black;
-  height: 100%;
-  max-height: 50px;
-  background: #b0c4de;
-  margin: 20% 0% 0% 0%;
-  color: white;
-  opacity: 1;
-}
-.register {
-  background-image: url(../../assets/homem-fundo.jpg);
-  background-repeat: no-repeat;
-  background-size: 100% 800px;
-  width: 100%;
-  height: 80vh;
-  display: flex;
-  text-align: center;
-  align-items: center;
+.NomeFlutuante {
   justify-content: center;
-  margin-bottom: 7%;
-  position: relative;
+  text-align: center;
+  left: 550px;
+  top: 30px;
 }
 
-.plans {
-  width: 100%;
+.team {
+  background: none;
   display: flex;
-  align-items: center;
+  text-align: center;
+  justify-content: center;
+  position: relative;
+  top: 40px;
+}
+.ImagemTeam {
+  width: 215px;
+  height: 300px;
   justify-content: center;
   text-align: center;
 }
-.plans div {
-  border-radius: 10px;
-  padding: 15px;
-  background-color: #1071a8;
-  width: 100%;
-  max-width: 300px;
-  min-height: 450px;
-  margin: 4% auto;
-  display: table;
-  text-align: center;
+.team div {
+  border: table;
+  right: 40px;
+  position: relative;
+  margin: 2%;
+  margin-left: 5%;
+  top: 20px;
 }
-.plans h2 {
-  color: black;
-  margin: 0 auto;
+.team h4 {
   background: none;
-  width: 100%;
   display: flex;
   text-align: center;
-  align-items: center;
   justify-content: center;
-}
-.plans h1 {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #ffffff;
   position: relative;
-  top: 5px;
-  right: 13px;
 }
-.plans div img {
-  display: flex;
+.team span {
+  margin: 2% 20% 0% 20%;
   background: none;
-  width: 100%;
-  max-width: 35px;
-  height: 100%;
-  max-height: 35px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
 }
-.plans div p {
-  margin: 2% 1px 0% 0%;
-  color: #c4c4c4;
-}
-.btn-bottom {
-  position: relative;
-  top: 130px;
-}
-.plans a:hover {
-  transition: 0.5s;
-}
-
-.plans a:hover {
-  transition: 0.5s;
-}
-
-.plans a:hover .mensal {
-  -webkit-box-shadow: 0px 12px 10px 0px rgba(255, 255, 255, 1);
-  -moz-box-shadow: 0px 12px 10px 0px rgba(255, 255, 255, 1);
-  box-shadow: 0px 12px 10px 0px rgba(255, 255, 255, 1);
-}
-
-.plans a:hover button {
-  border: 1px solid #a3d4ff;
+.team p {
+  margin: 2% 20% 0% 20%;
+  background: none;
+  display: flex;
+  text-align: center;
+  justify-content: center;
   color: white;
 }
-button:hover {
-  color: white !important;
+
+/**********************************************************/
+
+.Customers h2 {
+  color: white;
+  margin: 2% 20% 0% 20%;
+  background: none;
+  display: flex;
+  text-align: center;
+  justify-content: center;
 }

@@ -42,12 +42,21 @@ form input {
   transition: filter 0.2s;
 }
 
-.button:hover {
+/* .button:hover {
   filter: brightness(80%);
-}
+} */
 
 @media (max-width: 480px) {
   .text {
     font-size: 16px;
+  }
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 80% !important;
+    width: 100% !important;
+    margin-right: auto;
+    margin-left: auto;
   }
 }

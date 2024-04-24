@@ -1,14 +1,15 @@
 .registro-container {
-  background-color: #413e3e;
+  background-color: #212121;
   width: 100%;
 }
 
 .form-container {
-  padding: 5rem 5rem;
+  padding: 10px 5rem;
+  margin: 5rem auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
 }
 
 .form-container .form-dados {
@@ -47,7 +48,7 @@
   width: 100%;
   max-width: 300px;
   min-height: 450px;
-  margin: 4% auto;
+  margin: 0 auto;
   display: table;
   text-align: center;
 }
@@ -104,6 +105,17 @@
   border: 1px solid #a3d4ff;
   color: white;
 }
-button:hover {
-  color: white !important;
+/* button:hover {
+  color: white;
+} */
+
+.modal-body {
+  padding: 5% 0 !important;
+}
+
+a:hover {
+  opacity: 1;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
 }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Col, Row } from "react-bootstrap";
+import { Form, Button, Col, Row, Modal } from "react-bootstrap";
 
 import api from "../../services/api";
 
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
+
 import "./styles.css";
 import { useLocation } from "react-router-dom";
 
@@ -17,19 +18,64 @@ export default function RegistroUsuario() {
   const [telefone, setTelefone] = useState("");
   const [genero, setGenero] = useState("");
   const [role, setRole] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const [plano, setPlano] = useState(null);
+
+  const [status, setStatus] = useState([
+    {
+      tipo: "Plano Mensal",
+      value: "R$ 60,00",
+      descricao: [
+        "Segunda a Sábado",
+        "2 Horas Diárias",
+        "Todos os equipamentos",
+      ],
+    },
+
+    {
+      tipo: "Plano Trimestral",
+      value: "R$ 40,00",
+      descricao: [
+        "Segunda-feira",
+        "Dieta de um plano",
+        "4 Horas Diárias",
+        "Todos os equipamentos",
+        "Avaliação corporal bimestral",
+      ],
+    },
+
+    {
+      tipo: "Plano Anual",
+      value: "R$ 100,00",
+      descricao: [
+        "Segunda a Sábado",
+        "Todas as horas do dia",
+        "Todos os equipamentos",
+        "Avaliação corporal bimestral",
+        "Plano de dieta",
+      ],
+    },
+  ]);
 
   const location = useLocation();
   useEffect(() => {
     if (location?.state?.plano) {
       setPlano(location?.state?.plano);
+    } else {
+      setShowModal(true);
     }
   }, []);
 
+  const handleModal = () => {
+    setShowModal(!showModal);
+  };
+
   return (
     <div className="registro-container">
-      <Header />
+      <div className="body-container">
+        <Header />
+      </div>
       <div className="form-container">
         <Form className="form-dados">
           <Row>
@@ -175,6 +221,7 @@ export default function RegistroUsuario() {
                   {plano?.descricao?.map((item) => (
                     <p>{item}</p>
                   ))}
+                  <button onClick={handleModal}>Alterar Plano</button>
                 </div>
               ) : (
                 <div>
@@ -185,7 +232,46 @@ export default function RegistroUsuario() {
           </a>
         </section>
       </div>
-      <Footer />
+      <div className="div-footer-container">
+        <Footer />
+      </div>
+      <Modal
+        show={showModal}
+        onHide={() => {
+          if (plano !== null) {
+            handleModal();
+          }
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Escolher Plano:</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <section className="plans">
+            {status?.map((plano, index) => (
+              <a>
+                <div className="mensal">
+                  <div>
+                    <h2>{plano?.tipo}</h2>
+                    <h1>{plano?.value}</h1>
+                    {plano?.descricao?.map((item) => (
+                      <p>{item}</p>
+                    ))}
+                  </div>
+                  <button
+                    onClick={() => {
+                      setPlano(plano);
+                      setShowModal(false);
+                    }}
+                  >
+                    Matricule-se
+                  </button>
+                </div>
+              </a>
+            ))}
+          </section>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

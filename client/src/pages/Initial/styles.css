@@ -1,0 +1,283 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+.name-blue {
+  color: #1071a8;
+}
+
+.special-blue {
+  background-color: #16171b;
+  color: #1071a8;
+  bottom: 10px;
+  position: relative;
+}
+
+section h2 {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.principal {
+  width: 100%;
+}
+
+p {
+  background: none;
+  color: white;
+  font-size: 23px;
+  padding: 7px;
+}
+h1 {
+  font-size: 27px;
+  width: 100%;
+}
+span {
+  background: none;
+}
+.section-container {
+  background: none;
+  width: 100%;
+  position: relative;
+  top: 200px;
+  left: 65%;
+}
+
+.section-container div {
+  display: table;
+  width: 300px;
+  position: relative;
+  top: -200px;
+  left: 31%;
+  background: none;
+  font-size: medium;
+}
+.section-container div h1 {
+  width: 100%;
+}
+
+.fundo {
+  background-image: url(../../assets/fundo-home.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 1100px;
+  width: 100%;
+  background-color: #16171b;
+  height: 100%;
+}
+
+.text {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  font-size: medium;
+  height: 91vh;
+}
+
+.text div {
+  position: relative;
+}
+
+.text div p {
+  margin: auto;
+}
+
+.esports {
+  background: none;
+  background-color: #16171b;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.esports h2 {
+  text-align: center;
+  font-weight: 500;
+}
+
+.services img {
+  width: 100%;
+  max-width: 120px;
+  height: 100%;
+  max-height: 100px;
+  background-color: #1071a8;
+  position: relative;
+}
+.services h2 {
+  background-color: #1071a8;
+  font-size: 20px;
+  position: relative;
+  top: 10px;
+  display: flex;
+  text-align: center;
+}
+.services div p {
+  color: black;
+  background-color: #1071a8;
+  font-size: 18px;
+  position: relative;
+  top: 10px;
+}
+.services div {
+  width: 100%;
+
+  display: table;
+  background-color: #1071a8;
+  margin: 0 auto;
+  text-align: center;
+}
+.services div img {
+  display: flex;
+  margin: 0 auto;
+}
+.services {
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  padding: 1%;
+  background-color: #1071a8;
+  position: relative;
+}
+.register h1 {
+  color: #fff;
+  margin: 10% 0px 12px 0px;
+  width: 100%;
+
+  background: none;
+  font-weight: 500;
+}
+.register h2 {
+  width: 100%;
+  background: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+button {
+  border: 1px solid yellow;
+  margin: 4%;
+  width: 250px;
+  font-size: 14px;
+  padding: 10px 25px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 2px solid #3866a3;
+  background: #1071a8;
+  background: linear-gradient(top, #63b8ee, #468ccf);
+  background: -ms-linear-gradient(top, #63b8ee, #468ccf);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#63b8ee),
+    to(#468ccf)
+  );
+  background: -moz-linear-gradient(top, #63b8ee, #468ccf);
+  color: white;
+}
+
+.btn-top {
+  color: black;
+  height: 100%;
+  max-height: 50px;
+  background: #b0c4de;
+  margin: 20% 0% 0% 0%;
+  color: white;
+  opacity: 1;
+}
+.register {
+  background-image: url(../../assets/homem-fundo.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 800px;
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 7%;
+  position: relative;
+}
+
+.plans {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.plans div {
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #1071a8;
+  width: 100%;
+  max-width: 300px;
+  min-height: 450px;
+  margin: 4% auto;
+  display: table;
+  text-align: center;
+}
+.plans h2 {
+  color: black;
+  margin: 0 auto;
+  background: none;
+  width: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.plans h1 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 5px;
+  right: 13px;
+}
+.plans div img {
+  display: flex;
+  background: none;
+  width: 100%;
+  max-width: 35px;
+  height: 100%;
+  max-height: 35px;
+}
+.plans div p {
+  margin: 2% 1px 0% 0%;
+  color: #c4c4c4;
+}
+.btn-bottom {
+  position: relative;
+  top: 130px;
+}
+.plans a:hover {
+  transition: 0.5s;
+}
+
+.plans a:hover {
+  transition: 0.5s;
+}
+
+.plans a:hover .mensal {
+  -webkit-box-shadow: 0px 12px 10px 0px rgba(255, 255, 255, 1);
+  -moz-box-shadow: 0px 12px 10px 0px rgba(255, 255, 255, 1);
+  box-shadow: 0px 12px 10px 0px rgba(255, 255, 255, 1);
+}
+
+.plans a:hover button {
+  border: 1px solid #a3d4ff;
+  color: white;
+}
+/* button:hover {
+  color: white !important;
+} */
