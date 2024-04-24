@@ -36,8 +36,9 @@ export default function Login() {
         <Form /* validated={validated} */ onSubmit={handleSubmit}>
           <Form.Group as={Col} controlId="validationCustom01">
             <h1>Login</h1>
-            <p className="login-subtitle">Se você já é cliente, insira seus dados:</p>
-            <small></small>
+            <p className="login-subtitle">
+              Se você já é cliente, insira seus dados:
+            </p>
             <Form.Control
               required
               type="text"
@@ -48,7 +49,7 @@ export default function Login() {
               }}
             />
             <Form.Control
-              type="text"
+              type="password"
               placeholder="Senha"
               required
               name="senha"

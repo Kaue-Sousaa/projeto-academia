@@ -137,76 +137,75 @@ export default function RegistroUsuario() {
             </Form.Group>
             {/*  </Col> */}
             <Col>
-              <Form.Group controlId="nacionalidade">
-                <Form.Label>Nacionalidade</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="nacionalidade"
-                  /* value={usuario.nacionalidade}
-                  onChange={handleChange} */
-                  required
-                />
-              </Form.Group>
+              <Row>
+                <Form.Group controlId="telefone">
+                  <Form.Label>Telefone</Form.Label>
+                  <Form.Control
+                    type="tel"
+                    name="telefone"
+                    /* value={usuario.telefone}
+              onChange={handleChange} */
+                    required
+                  />
+                </Form.Group>
+              </Row>
             </Col>
           </Row>
           <Row>
-            <Row>
-              <Form.Group>
-                <Form.Label>DDI</Form.Label>
-                <Form.Control
-                  type="ddi"
-                  name="ddi"
-                  /* value={usuario.telefone}
-              onChange={handleChange} */
-                  required
-                />
-              </Form.Group>
-
-              <Form.Group controlId="telefone">
-                <Form.Label>Telefone</Form.Label>
-                <Form.Control
-                  type="tel"
-                  name="telefone"
-                  /* value={usuario.telefone}
-              onChange={handleChange} */
-                  required
-                />
-              </Form.Group>
-            </Row>
-
-            <Form.Group
-              controlId="genero"
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <Form.Check
-                type="radio"
-                label="Masculino"
-                name="genero"
-                value="MASCULINO"
-                /* checked={usuario.genero === "MASCULINO"}
-              onChange={handleChange} */
-                inline
+            <Form.Group className="senha">
+              <Form.Label>Senha</Form.Label>
+              <Form.Control
+                type="password"
+                name="nome"
+                /*  value={usuario.senha}
+                  onChange={handleChange} */
+                required
               />
-              <Form.Check
-                type="radio"
-                label="Feminino"
-                name="genero"
-                value="FEMININO"
-                /* checked={usuario.genero === "FEMININO"}
-              onChange={handleChange} */
-                inline
-              />
-              <Form.Check
-                type="radio"
-                label="Outros"
-                name="genero"
-                value="OUTROS"
-                /* checked={usuario.genero === "OUTROS"}
-              onChange={handleChange} */
-                inline
+            </Form.Group>
+            <Form.Group className="confirmarSenha">
+              <Form.Label>Confirmar Senha</Form.Label>
+              <Form.Control
+                type="password"
+                name="confirmarSenha"
+                /* value={usuario.confirmarSenha}
+                  onChange={handleChange} */
+                required
               />
             </Form.Group>
           </Row>
+
+          <Form.Group
+            controlId="genero"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <Form.Check
+              type="radio"
+              label="Masculino"
+              name="genero"
+              value="MASCULINO"
+              /* checked={usuario.genero === "MASCULINO"}
+              onChange={handleChange} */
+              inline
+            />
+            <Form.Check
+              type="radio"
+              label="Feminino"
+              name="genero"
+              value="FEMININO"
+              /* checked={usuario.genero === "FEMININO"}
+              onChange={handleChange} */
+              inline
+            />
+            <Form.Check
+              type="radio"
+              label="Outros"
+              name="genero"
+              value="OUTROS"
+              /* checked={usuario.genero === "OUTROS"}
+              onChange={handleChange} */
+              inline
+            />
+          </Form.Group>
           <Button className="button-registro" variant="primary" type="submit">
             Registrar
           </Button>

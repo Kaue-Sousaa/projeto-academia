@@ -17,9 +17,9 @@
   width: 70%;
 }
 
-.col div {
+/* .col div {
   width: 50%;
-}
+} */
 
 .row {
   display: flex;
@@ -29,9 +29,14 @@
   gap: 10px;
 }
 
+.registro-container .form-container .form-dados div,
+.registro-container .form-container .form-dados input {
+  margin-bottom: 5px !important;
+  --bs-gutter-x: 0;
+}
+
 .row div {
   flex: 1;
-  width: 100%;
 }
 
 .plano {
