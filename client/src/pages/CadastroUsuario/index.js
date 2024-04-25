@@ -7,7 +7,7 @@ import Header from "../../component/Header";
 import Footer from "../../component/Footer";
 
 import "./styles.css";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function RegistroUsuario() {
   const [nome, setNome] = useState("");
@@ -78,6 +78,11 @@ export default function RegistroUsuario() {
       </div>
       <div className="form-container">
         <Form className="form-dados">
+          <h1>Cadastro</h1>
+          <p className="register-subtitle">
+            Já tem cadastro?<a href="/login"> Clique aqui </a>para fazer o
+            login.
+          </p>
           <Row>
             <Form.Group className="nome">
               <Form.Label>Nome</Form.Label>

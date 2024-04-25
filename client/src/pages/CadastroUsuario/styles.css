@@ -124,3 +124,17 @@ a:hover {
   -ms-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+.register-subtitle {
+  font-size: 16px !important;
+  color: #fff;
+  margin-bottom: 10px;
+  padding: 0 !important;
+}
+
+.register-subtitle a {
+  font-size: 17px !important;
+  padding: 5px !important;
+  text-decoration: underline !important;
+  color: #ffffff !important;
+}
