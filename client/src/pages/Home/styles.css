@@ -1,185 +1,20 @@
-.header {
-  background-image: url(../../assets/with\ us.jpg);
-  height: 100vh;
+.home-container {
+  background-color: black;
 }
-.header h2 {
-  background: none;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  font-size: 50px;
-  color: #ffffff;
-  position: relative;
-  top: 30px;
+
+.calendar-container {
+  align-items: center;
+  justify-content: space-between;
+  background-color: #282732;
+  width: 60%;
+  height: 100%;
 }
-span {
-  background: none;
-  margin: 0% 0% 0% 1%;
-}
-.Container {
-  float: left;
-  height: 400px;
+
+.calendar-container h1 {
   width: 100%;
-  background-color: rgb(48, 47, 47);
-  margin-top: 100px;
-}
-.Container .Item1 {
-  width: 35%;
-  margin-left: 50px;
-  margin-top: 35px;
-  float: left;
-
-  height: 340px;
-}
-.Container .Item2 {
-  float: right;
-  text-align: center;
-  margin-right: 200px;
-  margin-top: 35px;
-  background: none;
-}
-.Container h2 {
-  margin: 5% 15% 5% 20%;
-  background: none;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  font-size: 30px;
-  color: #ffffff;
-}
-.Container span {
-  background: none;
-  margin: 0% 0% 0% 0%;
-  font-size: 20px;
-}
-
-/**********************************/
-
-.skills {
-  width: 450px;
-  margin-left: 720px;
-  margin-top: 160px;
-  color: white;
-  background: none;
-}
-.skills h3 {
-  background: none;
-}
-.skills li {
-  margin: 40px 0;
-  background: none;
-}
-.bar {
-  background: #353b48;
-  display: block;
-
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
-  overflow: hidden;
-  box-shadow: 0 0 10px #2187e7b3;
-}
-.bar span {
-  height: 4px;
-  float: left;
-  background: #2187e7b3;
-}
-.fisico {
-  width: 95%;
-  animation: fisico 3s;
-}
-.postura {
-  width: 85%;
-  animation: postura 3s;
-}
-.dedicaçao {
-  width: 98%;
-  animation: dedicaçao 3s;
-}
-@keyframes fisico {
-  0% {
-    width: 0%;
-  }
-  100% {
-    width: 95%;
-  }
-}
-@keyframes postura {
-  0% {
-    width: 0%;
-  }
-  100% {
-    width: 80%;
-  }
-}
-@keyframes dedicaçao {
-  0% {
-    width: 0%;
-  }
-  100% {
-    width: 90%;
-  }
-}
-
-.NomeFlutuante {
-  justify-content: center;
-  text-align: center;
-  left: 550px;
-  top: 30px;
-}
-
-.team {
-  background: none;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  position: relative;
-  top: 40px;
-}
-.ImagemTeam {
-  width: 215px;
-  height: 300px;
-  justify-content: center;
-  text-align: center;
-}
-.team div {
-  border: table;
-  right: 40px;
-  position: relative;
-  margin: 2%;
-  margin-left: 5%;
-  top: 20px;
-}
-.team h4 {
-  background: none;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  color: #ffffff;
-  position: relative;
-}
-.team span {
-  margin: 2% 20% 0% 20%;
-  background: none;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-}
-.team p {
-  margin: 2% 20% 0% 20%;
-  background: none;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  color: white;
-}
-
-/**********************************************************/
-
-.Customers h2 {
-  color: white;
-  margin: 2% 20% 0% 20%;
-  background: none;
-  display: flex;
-  text-align: center;
-  justify-content: center;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  color: #ffff;
 }
