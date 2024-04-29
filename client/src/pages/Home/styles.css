@@ -3,18 +3,16 @@
 }
 
 .calendar-container {
+  width: 80%;
+  margin: 0 auto;
+  color: #fff;
   align-items: center;
   justify-content: space-between;
   background-color: #282732;
-  width: 60%;
-  height: 100%;
 }
 
-.calendar-container h1 {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
+.home-container h1 {
+  align-items: center;
+  padding-left: 45%;
   color: #ffff;
 }

@@ -1,7 +1,10 @@
 import React from "react";
-import { Calendar } from "rsuite";
+import Fullcalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import ptBrLocale from "@fullcalendar/core/locales/pt-br";
 
-import "rsuite/Calendar/styles/index.css";
 import Head from "../../component/Header";
 import Footer from "../../component/Footer";
 
@@ -12,9 +15,21 @@ export default function Home() {
   return (
     <div className="home-container">
       <Head name={user}></Head>
+      <h1>Seja Bem Vindo</h1>
       <div className="calendar-container">
-        <h1>Seja Bem Vindo</h1>
-        <Calendar />
+        {/*  <Calendar /> */}
+        <Fullcalendar
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          initialView={"dayGridMonth"}
+          headerToolbar={{
+            start: "today prev,next",
+            center: "title",
+            translation: "português",
+            end: "dayGridMonth,timeGridWeek,timeGridDay",
+          }}
+          locale={ptBrLocale}
+          height={"100vh"}
+        />
       </div>
       <Footer></Footer>
     </div>

@@ -9,7 +9,7 @@ import Foooter from "../../component/Footer";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
 
-export default function HomeWeb() {
+export default function Initial() {
   const [status, setStatus] = useState([
     {
       tipo: "Plano Mensal",
