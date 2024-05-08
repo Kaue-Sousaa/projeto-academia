@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import br.com.academia.dto.CadastroClienteDto;
+import br.com.academia.dto.CadastroUsuarioDto;
 import br.com.academia.enums.UserRoleEn;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,16 +25,16 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(schema = "academia",name = "cadastro_cliente")
+@Table(schema = "academia",name = "cadastro_usuario")
 @NoArgsConstructor
 @AllArgsConstructor
-public class CadastroCliente implements UserDetails{
+public class Usuario implements UserDetails{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq_cadastro_cliente")
-	@SequenceGenerator(name = "seq_cadastro_cliente", sequenceName = "academia.seq_cadastro_cliente", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq_cadastro_usuario")
+	@SequenceGenerator(name = "seq_cadastro_usuario", sequenceName = "academia.seq_cadastro_usuario", initialValue = 1, allocationSize = 1)
 	private Integer id;
 	
 	@Column(name = "nome", nullable = false)
@@ -68,7 +68,7 @@ public class CadastroCliente implements UserDetails{
 	@Column(name = "role")
 	private String role;
 	
-	public CadastroCliente(CadastroClienteDto cadastroDto) {
+	public Usuario(CadastroUsuarioDto cadastroDto) {
 			this.id = null;
 			this.nome = cadastroDto.nome();
 			this.sobreNome = cadastroDto.sobreNome();

@@ -3,13 +3,13 @@ package br.com.academia.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import br.com.academia.model.CadastroCliente;
+import br.com.academia.model.Usuario;
 
-public interface CadastroClienteRepository extends JpaRepository<CadastroCliente, Integer>{
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 	
 	@Query(value = """ 
-			SELECT cpf FROM academia.cadastro_cliente
+			SELECT * FROM academia.cadastro_usuario
 			WHERE cpf = :cpf
 			""", nativeQuery = true)
-	String findByCpf(String cpf);
+	Usuario findByCpf(String cpf);
 }

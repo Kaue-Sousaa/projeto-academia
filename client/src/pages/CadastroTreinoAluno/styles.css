@@ -1,0 +1,8 @@
+.div-button {
+  display: flex;
+  gap: 20px;
+}
+.button-excluir {
+  background-color: #f40101 !important;
+  border-color: #f40101 !important;
+}

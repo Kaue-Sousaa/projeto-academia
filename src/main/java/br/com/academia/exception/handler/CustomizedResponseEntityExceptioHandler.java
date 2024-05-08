@@ -7,13 +7,17 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
+
 import br.com.academia.exception.ExceptionResponse;
+import br.com.academia.exception.InvalidJwtAuthenticationException;
 import br.com.academia.exception.RequiredObjectIsNullException;
 import br.com.academia.exception.ResourceNotFoundException;
 import br.com.academia.exception.ValidFieldResponse;
@@ -44,15 +48,15 @@ public class CustomizedResponseEntityExceptioHandler {
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
 	}
 	
-//	@ExceptionHandler({InvalidJwtAuthenticationException.class, 
-//		TokenExpiredException.class, InternalAuthenticationServiceException.class})
-//	public final ResponseEntity<ExceptionResponse> handleInvalidJwtAuthenticationException(Exception ex, WebRequest request){
-//        
-//		ExceptionResponse exceptionResponse = new ExceptionResponse(
-//				LocalDateTime.now(), ex.getMessage() , request.getDescription(false));
-//		
-//		return new ResponseEntity<>(exceptionResponse, HttpStatus.UNAUTHORIZED);
-//	}
+	@ExceptionHandler({InvalidJwtAuthenticationException.class, 
+		TokenExpiredException.class, InternalAuthenticationServiceException.class})
+	public final ResponseEntity<ExceptionResponse> handleInvalidJwtAuthenticationException(Exception ex, WebRequest request){
+        
+		ExceptionResponse exceptionResponse = new ExceptionResponse(
+				LocalDateTime.now(), ex.getMessage() , request.getDescription(false));
+		
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.UNAUTHORIZED);
+	}
 	
 	@ExceptionHandler({Exception.class,IllegalStateException.class, NullPointerException.class, InvocationTargetException.class})
 	public final ResponseEntity<ExceptionResponse> handleInternalServerErroException(

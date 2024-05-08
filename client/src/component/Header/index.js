@@ -23,7 +23,7 @@ export default function HeadeWeb(props) {
       </div>
       <nav>
         <Link to="/">INICIO</Link>
-        <Link to="/obout">SOBRE NÓS</Link>
+        <Link to="/about">SOBRE NÓS</Link>
         {storage === null && <Link to="/login">LOGIN</Link>}
 
         {storage !== null && (

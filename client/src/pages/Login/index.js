@@ -22,8 +22,8 @@ export default function Login() {
   };
 
   const handleSubmit = (values) => {
-    localStorage.setItem("credenciais", form);
     values.preventDefault();
+    localStorage.setItem("credenciais", form);
     console.log("values: ", form);
   };
 

@@ -1,9 +1,20 @@
-.home-container {
+.principal {
   background-color: black;
 }
 
+.calendar-container a {
+  padding: 0 !important;
+  border-color: cornsilk !important;
+  color: cornsilk !important;
+  font-size: 12px !important;
+}
+
+.calendar-container a:hover {
+  transform: scale(1) !important;
+}
+
 .calendar-container {
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
   color: #fff;
   align-items: center;
@@ -12,7 +23,24 @@
 }
 
 .home-container h1 {
-  align-items: center;
-  padding-left: 45%;
+  text-align: center;
+  color: #ffff;
+  margin: 2rem 0;
+}
+
+.fc-toolbar-chunk {
+  display: flex;
+  flex-direction: row;
+}
+
+.fc-toolbar-chunk button,
+.fc-button-group button {
+  width: 100% !important;
+}
+
+.fc .fc-timegrid-axis-cushion {
   color: #ffff;
 }
+/* .fc-scrollgrid-sync-table{
+  display: none !important;
+} */

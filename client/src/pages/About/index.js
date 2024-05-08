@@ -7,7 +7,7 @@ import professional3 from "../../assets/professional3.png";
 import professional4 from "../../assets/professional4.png";
 import "./styles.css";
 
-export default function Obout() {
+export default function About() {
   const user = localStorage.getItem("sessionName");
   return (
     <div>

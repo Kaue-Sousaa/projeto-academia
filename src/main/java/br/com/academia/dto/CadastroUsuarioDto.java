@@ -1,8 +1,8 @@
 package br.com.academia.dto;
 
-import br.com.academia.model.CadastroCliente;
+import br.com.academia.model.Usuario;
 
-public record CadastroClienteDto(
+public record CadastroUsuarioDto(
 		Integer id,
 		
 		String nome,
@@ -27,7 +27,7 @@ public record CadastroClienteDto(
 		
 		) {
 	
-	public CadastroClienteDto(CadastroCliente entity) {
+	public CadastroUsuarioDto(Usuario entity) {
 		this ( 
 				entity.getId(),
 				entity.getNome(),
