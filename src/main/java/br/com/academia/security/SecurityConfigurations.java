@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,19 +31,22 @@ public class SecurityConfigurations {
 				.sessionManagement(
 						session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(authorize -> authorize
-						.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-						.requestMatchers(HttpMethod.POST, "/usuario/cadastro").permitAll()
-						.requestMatchers(HttpMethod.DELETE, "/usuario/excluir/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/auth/login", "/usuario/cadastro").permitAll()
+						.requestMatchers(HttpMethod.DELETE, "/usuario/excluir/**", "/categoria/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/categoria/cadastro/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET, "/categoria", "/categoria/**").hasRole("ADMIN")
 						.anyRequest().authenticated()
 				)
-				.exceptionHandling(exception -> exception
-						.accessDeniedHandler((request, response, accessDeniedException) -> {
-	                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-	                        response.getWriter().write("Acesso Negado!");
-						})
-				)
+				.exceptionHandling(this::configureExceptionHandling)
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
+	}
+	
+	private void configureExceptionHandling(ExceptionHandlingConfigurer<HttpSecurity> exception) {
+	    exception.accessDeniedHandler((request, response, accessDeniedException) -> {
+	        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	        response.getWriter().write("Acesso Negado!");
+	    });
 	}
 	
 	@Bean

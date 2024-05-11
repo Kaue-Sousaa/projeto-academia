@@ -1,6 +1,6 @@
 package br.com.academia.service;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class TreinoAlunoService{
 		if(!listTodosTreino.isEmpty()) {
 			 return listTodosTreino.stream().map(TreinoAlunoDto::new).toList();
 		}
-		return new ArrayList<>();
+		return Collections.emptyList();
 	}
 	
 	public TreinoAlunoDto buscarTreinoPorIdAluno(Integer id) {
