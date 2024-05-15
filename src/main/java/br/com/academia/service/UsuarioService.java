@@ -32,7 +32,7 @@ public class UsuarioService{
 	public String salvarCadastro(CadastroUsuarioDto cadastroDto) {
 		var entity = usuarioRepository.findByCpf(cadastroDto.cpf());
 		if(entity == null) {
-			if(!isValidCampoConfirmSenha(cadastroDto.senha(), cadastroDto.confirmSenha())) {
+			if(!isValidCampoConfirmSenha(cadastroDto.senha(), cadastroDto.confirmarSenha())) {
 				return "As senhas não são iguais. Tente novamente.";
 			}
 			return salvarUsuario(cadastroDto);
@@ -47,7 +47,7 @@ public class UsuarioService{
 			
 			entity.setNome(cliente.nome());
 			entity.setCpf(cliente.cpf());
-			entity.setDtNascimento(cliente.dtNascimento());
+			entity.setDataNascimento(cliente.dataNascimento());
 			entity.setTelefone(cliente.telefone());
 			entity.setEmail(cliente.email());
 			entity.setGenero(cliente.genero());

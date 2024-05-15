@@ -17,6 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import br.com.academia.exception.ExceptionResponse;
+import br.com.academia.exception.ExistingObject;
 import br.com.academia.exception.InvalidJwtAuthenticationException;
 import br.com.academia.exception.RequiredObjectIsNullException;
 import br.com.academia.exception.ResourceNotFoundException;
@@ -25,7 +26,7 @@ import br.com.academia.exception.ValidFieldResponse;
 @RestControllerAdvice
 public class CustomizedResponseEntityExceptioHandler {
 	
-	@ExceptionHandler({RequiredObjectIsNullException.class, MethodArgumentNotValidException.class})
+	@ExceptionHandler({RequiredObjectIsNullException.class, MethodArgumentNotValidException.class, ExistingObject.class })
 	public final ResponseEntity<ValidFieldResponse> handleAllException(MethodArgumentNotValidException ex, WebRequest request){
 		BindingResult bindingResult = ex.getBindingResult();
         List<String> errorMessages = new ArrayList<>();

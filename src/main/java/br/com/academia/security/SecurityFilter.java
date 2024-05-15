@@ -23,14 +23,16 @@ public class SecurityFilter extends OncePerRequestFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		var token = this.recoverToken(request);
-		if(token != null && !tokenService.validateToken(token)) {
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			response.getWriter().write("Token Invalido!");
-			return;
-		}else if(token != null && tokenService.validateToken(token)) {
-			Authentication auth = tokenService.getAuthentication(token);
-			if(auth != null) {
-				SecurityContextHolder.getContext().setAuthentication(auth);
+		if(token != null) {
+			if(!tokenService.validateToken(token)) {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				response.getWriter().write("Token Invalido!");
+				return;
+			}else {
+				Authentication auth = tokenService.getAuthentication(token);
+				if(auth != null) {
+					SecurityContextHolder.getContext().setAuthentication(auth);
+				}
 			}
 		}
 		filterChain.doFilter(request, response);

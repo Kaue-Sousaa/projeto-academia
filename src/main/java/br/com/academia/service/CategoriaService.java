@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
 import br.com.academia.dto.CategoriaDto;
+import br.com.academia.exception.ResourceNotFoundException;
 import br.com.academia.model.Categoria;
 import br.com.academia.repository.CategoriaRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +28,13 @@ public class CategoriaService {
 	
 	public CategoriaDto buscarCategoriaPorId(Integer id) {
 		return new CategoriaDto(categoriaRepository.findById(id)
-				.orElseThrow(() -> new ResourceAccessException("Categoria não encontrada")));
+				.orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada")));
 	}
 	
 	public String salvarCategoria(CategoriaDto categoriaDto) {
 		var categoria = categoriaRepository.findByCategoria(categoriaDto.categoria());
 		if(categoria != null) {
-			throw new ResourceAccessException("Categoria já cadastrada!");
+			throw new ResourceNotFoundException("Categoria já cadastrada!");
 		}else {
 			categoriaRepository.save(new Categoria(categoriaDto));
 			return "Cadastro bem sucedido!";
@@ -42,7 +43,7 @@ public class CategoriaService {
 	
 	public CategoriaDto atualizarCategoria(CategoriaDto categoriaDto) {
 		var categoria = categoriaRepository.findById(categoriaDto.id())
-				.orElseThrow(() -> new ResourceAccessException("Categoria não encontrada"));
+				.orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
 		
 		categoria.setCategoria(categoriaDto.categoria());
 		categoriaRepository.save(categoria);
@@ -51,7 +52,7 @@ public class CategoriaService {
 	
 	public void excluirCategoria(Integer id) {
 		var categoria = categoriaRepository.findById(id)
-				.orElseThrow(() -> new ResourceAccessException("Categoria não encontrada"));
+				.orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
 		categoriaRepository.delete(categoria);
 	}
 }

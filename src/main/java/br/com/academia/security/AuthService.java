@@ -28,7 +28,7 @@ public class AuthService {
 			var usuario = repository.findByCpf(login.cpf());
 			if(usuario != null) {
 				return ResponseEntity.ok(
-						tokenService.createAccessToken(login.cpf(), List.of(login.senha())));
+						tokenService.createAccessToken(login.cpf(), List.of(usuario.getRole()),usuario));
 			}else {
 				throw new UsernameNotFoundException("CPF " + login.cpf() + " não encontrado!");
 			}

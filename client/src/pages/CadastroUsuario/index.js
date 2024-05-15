@@ -7,17 +7,43 @@ import Header from "../../component/Header";
 import Footer from "../../component/Footer";
 
 import "./styles.css";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function RegistroUsuario() {
-  const [nome, setNome] = useState("");
-  const [sobreNome, setSobreNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [dataNascimento, setDataNascimento] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [genero, setGenero] = useState("");
-  const [role, setRole] = useState("");
+  const [formData, setFormData] = useState({
+    nome: "",
+    sobreNome: "",
+    email: "",
+    cpf: "",
+    dataNascimento: "",
+    telefone: "",
+    senha: "",
+    confirmarSenha: "",
+    genero: "",
+    role: "USER",
+  });
+
+  const handleFormEdit = (event, name) => {
+    setFormData({
+      ...formData,
+      [name]: event.target.value,
+    });
+  };
+
+  const navigate = useNavigate();
+  const handleForm = async (event) => {
+    try {
+      event.preventDefault();
+      const response = await api.post("/usuario/cadastro", formData);
+      if (response.status === 200) {
+        navigate("/login", {});
+      }
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [showModal, setShowModal] = useState(false);
 
   const [plano, setPlano] = useState(null);
@@ -77,7 +103,7 @@ export default function RegistroUsuario() {
         <Header />
       </div>
       <div className="form-container">
-        <Form className="form-dados">
+        <Form className="form-dados" onSubmit={handleForm}>
           <h1>Cadastro</h1>
           <p className="register-subtitle">
             Já tem cadastro?<a href="/login"> Clique aqui </a>para fazer o
@@ -89,8 +115,8 @@ export default function RegistroUsuario() {
               <Form.Control
                 type="text"
                 name="nome"
-                /*  value={usuario.nome}
-                  onChange={handleChange} */
+                value={formData.nome}
+                onChange={(e) => handleFormEdit(e, "nome")}
                 required
               />
             </Form.Group>
@@ -100,8 +126,8 @@ export default function RegistroUsuario() {
                 size="sm"
                 type="text"
                 name="sobrenome"
-                /* value={usuario.sobrenome}
-                  onChange={handleChange} */
+                value={formData.sobreNome}
+                onChange={(e) => handleFormEdit(e, "sobreNome")}
                 required
               />
             </Form.Group>
@@ -112,8 +138,8 @@ export default function RegistroUsuario() {
               <Form.Control
                 type="email"
                 name="email"
-                /* value={usuario.email}
-              onChange={handleChange} */
+                value={formData.email}
+                onChange={(e) => handleFormEdit(e, "email")}
                 required
               />
             </Form.Group>
@@ -122,8 +148,8 @@ export default function RegistroUsuario() {
               <Form.Control
                 type="text"
                 name="cpf"
-                /* value={usuario.cpf}
-              onChange={handleChange} */
+                value={formData.cpf}
+                onChange={(e) => handleFormEdit(e, "cpf")}
                 required
               />
             </Form.Group>
@@ -135,8 +161,8 @@ export default function RegistroUsuario() {
               <Form.Control
                 type="date"
                 name="dataNascimento"
-                /* value={usuario.dataNascimento}
-                  onChange={handleChange} */
+                value={formData.dataNascimento}
+                onChange={(e) => handleFormEdit(e, "dataNascimento")}
                 required
               />
             </Form.Group>
@@ -148,8 +174,8 @@ export default function RegistroUsuario() {
                   <Form.Control
                     type="tel"
                     name="telefone"
-                    /* value={usuario.telefone}
-              onChange={handleChange} */
+                    value={formData.telefone}
+                    onChange={(e) => handleFormEdit(e, "telefone")}
                     required
                   />
                 </Form.Group>
@@ -162,8 +188,8 @@ export default function RegistroUsuario() {
               <Form.Control
                 type="password"
                 name="nome"
-                /*  value={usuario.senha}
-                  onChange={handleChange} */
+                value={formData.senha}
+                onChange={(e) => handleFormEdit(e, "senha")}
                 required
               />
             </Form.Group>
@@ -172,8 +198,8 @@ export default function RegistroUsuario() {
               <Form.Control
                 type="password"
                 name="confirmarSenha"
-                /* value={usuario.confirmarSenha}
-                  onChange={handleChange} */
+                value={formData.confirmarSenha}
+                onChange={(e) => handleFormEdit(e, "confirmarSenha")}
                 required
               />
             </Form.Group>
@@ -188,8 +214,8 @@ export default function RegistroUsuario() {
               label="Masculino"
               name="genero"
               value="MASCULINO"
-              /* checked={usuario.genero === "MASCULINO"}
-              onChange={handleChange} */
+              checked={formData.genero === "MASCULINO"}
+              onChange={(e) => handleFormEdit(e, "genero")}
               inline
             />
             <Form.Check
@@ -197,8 +223,8 @@ export default function RegistroUsuario() {
               label="Feminino"
               name="genero"
               value="FEMININO"
-              /* checked={usuario.genero === "FEMININO"}
-              onChange={handleChange} */
+              checked={formData.genero === "FEMININO"}
+              onChange={(e) => handleFormEdit(e, "genero")}
               inline
             />
             <Form.Check
@@ -206,8 +232,8 @@ export default function RegistroUsuario() {
               label="Outros"
               name="genero"
               value="OUTROS"
-              /* checked={usuario.genero === "OUTROS"}
-              onChange={handleChange} */
+              checked={formData.genero === "OUTROS"}
+              onChange={(e) => handleFormEdit(e, "genero")}
               inline
             />
           </Form.Group>

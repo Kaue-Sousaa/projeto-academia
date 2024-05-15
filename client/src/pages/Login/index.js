@@ -3,28 +3,32 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Row from "react-bootstrap/Row";
+import api from "../../services/api";
+
 import "./styles.css";
 
 import Header from "../../component/Header";
 import Footer from "../../component/Footer";
-import logo from "../../assets/favicon.png";
+
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const [cpf, setCpf] = useState("");
   const [form, setForm] = useState({});
-
-  const handleCpfChange = (event) => {
-    const inputValue = event.target.value.replace(/\D/g, "");
-    setCpf(inputValue);
-  };
-
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     values.preventDefault();
-    localStorage.setItem("credenciais", form);
-    console.log("values: ", form);
+    try {
+      const response = await api.post("/auth/login", form);
+      if (response.status === 200) {
+        localStorage.setItem(
+          process.env.REACT_APP_AUTH,
+          JSON.stringify(response.data)
+        );
+        navigate("/home", {});
+      }
+      console.log("values: ", form);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const navigate = useNavigate();

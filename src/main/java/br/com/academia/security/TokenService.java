@@ -17,7 +17,9 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+
 import br.com.academia.dto.TokenDto;
+import br.com.academia.model.Usuario;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -31,25 +33,13 @@ public class TokenService {
 	
 	private final UserDetailsService userDetailsService;
 	
-	public TokenDto createAccessToken(String cpf, List<String> roles) {
+	public TokenDto createAccessToken(String cpf, List<String> roles, Usuario usuario) {
 		Date now = new Date();
 		Date validity = new Date(now.getTime() + validityInMilliseconds);
-		return new TokenDto(
-				getAccessToken(cpf, roles, now, validity),
-				getRefreshToken(cpf, roles,  now));
+		return new TokenDto(getAccessToken(cpf, roles, now, validity),
+				 usuario.getNome().concat(" " + usuario.getSobreNome()), usuario.getEmail(), roles.get(0));
 	}
 
-	public TokenDto refreshToken(String refreshToken) {
-		if(refreshToken.contains("Bearer ")) {
-			refreshToken = refreshToken.substring("Bearer ".length());
-		}
-		JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret)).build();
-		DecodedJWT decodedJWT = verifier.verify(refreshToken);
-		String cpf = decodedJWT.getSubject();
-		List<String> roles = decodedJWT.getClaim("roles").asList(String.class);
-		return createAccessToken(cpf, roles);
-	}
-	
 	private String getAccessToken(String cpf, List<String> roles, Date now, Date validity) {
 		String issuerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
 		return JWT.create()
@@ -58,17 +48,6 @@ public class TokenService {
 				.withExpiresAt(validity)
 				.withSubject(cpf)
 				.withIssuer(issuerUrl)
-				.sign(Algorithm.HMAC256(secret))
-				.strip();
-	}
-	
-	private String getRefreshToken(String cpf, List<String> roles, Date now) {
-		Date validityRefreshToken = new Date(now.getTime() + (validityInMilliseconds * 3));
-		return JWT.create()
-				.withClaim("roles", roles)
-				.withIssuedAt(now)
-				.withExpiresAt(validityRefreshToken)
-				.withSubject(cpf)
 				.sign(Algorithm.HMAC256(secret))
 				.strip();
 	}

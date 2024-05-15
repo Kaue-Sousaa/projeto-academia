@@ -50,7 +50,7 @@ public class Usuario implements UserDetails{
 	private String cpf;
 	
 	@Column(name = "dt_nascimento",nullable = false)
-	private String dtNascimento;
+	private String dataNascimento;
 	
 	@Column(name = "telefone")
 	private String telefone;
@@ -63,7 +63,7 @@ public class Usuario implements UserDetails{
 	
 	@JsonIgnoreProperties
 	@Transient
-	private String confirmSenha;
+	private String confirmarSenha;
 	
 	@Column(name = "role")
 	private String role;
@@ -74,11 +74,11 @@ public class Usuario implements UserDetails{
 			this.sobreNome = cadastroDto.sobreNome();
 			this.email = cadastroDto.email();
 			this.cpf = cadastroDto.cpf();
-			this.dtNascimento = cadastroDto.dtNascimento();
+			this.dataNascimento = cadastroDto.dataNascimento();
 			this.telefone = cadastroDto.telefone();
 			this.genero = cadastroDto.genero();
 			this.senha = cadastroDto.senha();
-			this.confirmSenha = cadastroDto.confirmSenha();
+			this.confirmarSenha = cadastroDto.confirmarSenha();
 			this.role = cadastroDto.role();
 	}
 

@@ -1,5 +1,6 @@
 package br.com.academia.model;
 
+import br.com.academia.dto.SubCategoriaDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class SubCategoria {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq_sub_categoria")
-	@SequenceGenerator(name = "seq_sub_categoria", sequenceName = "academia.sub_categoria", initialValue = 1, allocationSize = 1)
+	@SequenceGenerator(name = "seq_sub_categoria", sequenceName = "academia.seq_sub_categoria", initialValue = 1, allocationSize = 1)
 	private Integer id;
 	
 	@Column(name = "sub_categoria")
@@ -28,5 +29,10 @@ public class SubCategoria {
 	
 	@Column(name = "id_categoria")
 	private Integer idCategoria;
-
+	
+	public SubCategoria(SubCategoriaDto dto) {
+		this.id = dto.id();
+		this.subCategoria = dto.subCategoria();
+		this.idCategoria = dto.idCategoria();
+	}
 }

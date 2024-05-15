@@ -1,5 +1,7 @@
 package br.com.academia.security;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +31,16 @@ public class SecurityConfigurations {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity.csrf(AbstractHttpConfigurer::disable)
+				.cors(cors -> cors
+						.configurationSource(request -> {
+							CorsConfiguration corsConfiguration = new CorsConfiguration();
+							corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+							corsConfiguration.setAllowedMethods(
+									Arrays.asList("POST", "PUT", "GET", "PATCH", "DELETE", "OPTIONS"));
+							corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
+							corsConfiguration.setAllowCredentials(true);
+							return corsConfiguration;
+						}))
 				.sessionManagement(
 						session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(authorize -> authorize

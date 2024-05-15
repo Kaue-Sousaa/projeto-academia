@@ -13,7 +13,7 @@ public record CadastroUsuarioDto(
 		
 		String cpf,
 		
-		String dtNascimento,
+		String dataNascimento,
 	
 		String telefone,
 		
@@ -21,7 +21,7 @@ public record CadastroUsuarioDto(
 		
 		String senha,
 		
-		String confirmSenha,
+		String confirmarSenha,
 		
 		String role
 		
@@ -34,11 +34,11 @@ public record CadastroUsuarioDto(
 				entity.getSobreNome(),
 				entity.getEmail(),
 				entity.getCpf(),
-				entity.getDtNascimento(),
+				entity.getDataNascimento(),
 				entity.getTelefone(),
 				entity.getGenero(),
 				entity.getSenha(),
-				entity.getConfirmSenha(),
+				entity.getConfirmarSenha(),
 				entity.getRole()
 			);
 	}
