@@ -1,12 +1,11 @@
 package br.com.academia.service;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
 
 import br.com.academia.dto.CategoriaDto;
+import br.com.academia.exception.ExistingObject;
 import br.com.academia.exception.ResourceNotFoundException;
 import br.com.academia.model.Categoria;
 import br.com.academia.repository.CategoriaRepository;
@@ -19,11 +18,7 @@ public class CategoriaService {
 	private final CategoriaRepository categoriaRepository;
 	
 	public List<CategoriaDto> bucasTodasCategoria(){
-		var listaCategoria = categoriaRepository.findAll();
-		if(!listaCategoria.isEmpty()) {
-			return listaCategoria.stream().map(CategoriaDto::new).toList();
-		}
-		return Collections.emptyList();
+		return categoriaRepository.findAll().stream().map(CategoriaDto::new).toList();
 	}
 	
 	public CategoriaDto buscarCategoriaPorId(Integer id) {
@@ -34,7 +29,7 @@ public class CategoriaService {
 	public String salvarCategoria(CategoriaDto categoriaDto) {
 		var categoria = categoriaRepository.findByCategoria(categoriaDto.categoria());
 		if(categoria != null) {
-			throw new ResourceNotFoundException("Categoria já cadastrada!");
+			throw new ExistingObject("Categoria já cadastrada!");
 		}else {
 			categoriaRepository.save(new Categoria(categoriaDto));
 			return "Cadastro bem sucedido!";

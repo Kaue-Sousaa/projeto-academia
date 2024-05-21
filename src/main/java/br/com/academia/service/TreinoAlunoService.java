@@ -1,6 +1,5 @@
 package br.com.academia.service;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -18,11 +17,7 @@ public class TreinoAlunoService{
 	private final TreinoAlunoRepository treinoRepository;
 	
 	public List<TreinoAlunoDto> buscarTodosTreinoAluno(){
-		var listTodosTreino = treinoRepository.findAll();
-		if(!listTodosTreino.isEmpty()) {
-			 return listTodosTreino.stream().map(TreinoAlunoDto::new).toList();
-		}
-		return Collections.emptyList();
+		return treinoRepository.findAll().stream().map(TreinoAlunoDto::new).toList();
 	}
 	
 	public TreinoAlunoDto buscarTreinoPorIdAluno(Integer id) {

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 import br.com.academia.dto.CadastroUsuarioDto;
 import br.com.academia.exception.ResourceNotFoundException;
 import br.com.academia.model.Usuario;
@@ -30,14 +29,15 @@ public class UsuarioService{
 	}
 	
 	public String salvarCadastro(CadastroUsuarioDto cadastroDto) {
+		var save = new String();
 		var entity = usuarioRepository.findByCpf(cadastroDto.cpf());
 		if(entity == null) {
 			if(!isValidCampoConfirmSenha(cadastroDto.senha(), cadastroDto.confirmarSenha())) {
-				return "As senhas não são iguais. Tente novamente.";
-			}
-			return salvarUsuario(cadastroDto);
+				save = "As senhas não são iguais. Tente novamente.";
+			}else
+				save =  salvarUsuario(cadastroDto);
 		}
-		return "Erro ao cadastrar Usuário.";
+		return save;
 	}
 	
 	public CadastroUsuarioDto atualizarCadastro(CadastroUsuarioDto cliente){
@@ -52,8 +52,7 @@ public class UsuarioService{
 			entity.setEmail(cliente.email());
 			entity.setGenero(cliente.genero());
 			
-			usuarioRepository.save(entity);
-			return new CadastroUsuarioDto(entity);
+			return new CadastroUsuarioDto(usuarioRepository.save(entity));
 		} catch (Exception e) {
 			throw new ResourceNotFoundException(e.getMessage());
 		}
