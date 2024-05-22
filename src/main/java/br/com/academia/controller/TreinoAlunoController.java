@@ -34,7 +34,7 @@ public class TreinoAlunoController {
 		return ResponseEntity.ok(treinoService.buscarTreinoPorIdAluno(id));
 	}
 	
-	@PostMapping(value = "cadastrar", consumes = MediaType.APPLICATION_JSON_VALUE,
+	@PostMapping(value = "cadastro", consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public void salvarTreino(@RequestBody TreinoAlunoDto treinoAluno) {
 		treinoService.salvarTreino(treinoAluno);

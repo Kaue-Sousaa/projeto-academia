@@ -5,7 +5,7 @@ import br.com.academia.model.TreinoAluno;
 public record TreinoAlunoDto(
 		Integer id,
 		
-		String aluno,
+		Integer aluno,
 		
 		Integer categoria,
 		

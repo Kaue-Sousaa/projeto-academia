@@ -25,7 +25,11 @@ export default function AppRoutes() {
             </PrivateRoute>
           }
         />
-        <Route path="/treino-aluno" element={<Treino />} />
+        <Route path="/treino-aluno" element={
+        <PrivateRoute>
+        <Treino />
+      </PrivateRoute>
+      } />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>

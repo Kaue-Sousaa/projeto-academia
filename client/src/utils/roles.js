@@ -5,8 +5,12 @@ const roles = {
 
 const rolesPath = [
   {
-    path: "/home",
+    path: "/treino-aluno",
     role: roles.admin,
+  },
+  {
+    path: "/home",
+    role: roles.user,
   },
   /* 
   {

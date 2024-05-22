@@ -8,12 +8,14 @@ import br.com.academia.dto.TreinoAlunoDto;
 import br.com.academia.exception.ResourceNotFoundException;
 import br.com.academia.model.TreinoAluno;
 import br.com.academia.repository.TreinoAlunoRepository;
+import br.com.academia.strategy.impl.FieldNullOrZero;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class TreinoAlunoService{
 	
+	private final FieldNullOrZero camposValidateStrategy;
 	private final TreinoAlunoRepository treinoRepository;
 	
 	public List<TreinoAlunoDto> buscarTodosTreinoAluno(){
@@ -26,6 +28,8 @@ public class TreinoAlunoService{
 	}
 	
 	public void salvarTreino(TreinoAlunoDto treinoAluno) {
+		camposValidateStrategy.validar(treinoAluno);
+
 		treinoRepository.save(new TreinoAluno(treinoAluno));
 	}
 	

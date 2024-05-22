@@ -25,7 +25,7 @@ public class TreinoAluno {
 	private Integer id;
 	
 	@Column(name = "id_nome_aluno", nullable = false)
-	private String aluno;
+	private Integer aluno;
 	
 	@Column(name = "id_categoria", nullable = false)
 	private Integer categoria;

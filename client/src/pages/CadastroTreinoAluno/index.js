@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Fullcalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import ptBrLocale from "@fullcalendar/core/locales/pt-br";
-import { Modal, Col, Row, Form, Button } from "react-bootstrap";
+import { Modal, Row, Form, Button } from "react-bootstrap";
 import TimePicker from "react-bootstrap-time-picker";
 import Tabela from "./../../component/Table";
 
@@ -12,19 +12,60 @@ import Head from "../../component/Header";
 import Footer from "../../component/Footer";
 import "./styles.css";
 import moment from "moment";
+import api from "../../services/api";
 
 export default function CadastrarTreinoAluno() {
   const user = localStorage.getItem("sessionName");
   const [showModalRegister, setShowModalRegister] = useState(false);
   const [showModalUserList, setShowModalUserList] = useState(false);
   const [form, setForm] = useState({
-    aluno: "",
-    horario: "",
-    categoria: "",
-    subcat: "",
+    aluno: "0",
+    categoria: "0",
+    subCategoria: "0",
+    horario: "0",
   });
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(0);
+
+  const [alunos, setAlunos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [subCategorias, setSubCategorias] = useState([]);
+
+  useEffect(() => {
+    buscarTodasSubCategorias();
+    buscarTodasCategorias();
+    getAllAluno();
+  }, []);
+
+  const buscarTodasCategorias = async () => {
+    const response = await api.get("/categoria");
+    if (response?.status !== 200) {
+      console.log("nenhuma categoria encontrada");
+    } else {
+      setCategorias(response?.data);
+      console.log(response?.data);
+    }
+  };
+
+  const buscarTodasSubCategorias = async () => {
+    const response = await api.get("/subCategoria");
+    if (response?.status !== 200) {
+      console.log("nenhuma sub-categoria encontrada");
+    } else {
+      setSubCategorias(response?.data);
+      console.log(response?.data);
+    }
+  };
+
+  const getAllAluno = async () => {
+    const response = await api.get("usuario");
+    if (response?.status !== 200) {
+      console.log("Nenhum aluno encontrado!");
+    } else {
+      setAlunos(response?.data);
+      console.log(response?.data);
+    }
+  };
 
   const handleTimeChange = (time) => {
     setTime(time);
@@ -51,9 +92,17 @@ export default function CadastrarTreinoAluno() {
     });
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     values.preventDefault();
-    console.log("values: ", form);
+    console.log(form);
+    try {
+      const response = await api.post("/treino/cadastro", form);
+      if (response?.status === 200) {
+        console.log(response?.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const [dados, setDados] = useState([
@@ -122,9 +171,14 @@ export default function CadastrarTreinoAluno() {
                 name="aluno"
                 onChange={(e) => handleForm(e)}
               >
-                <option value={"id_1"}>Aluno A</option>
-                <option value={"id_2"}>Aluno B</option>
-                <option value={"id_3"}>Aluno C</option>
+                <option key={"0"} value={"0"}>
+                  Selecione
+                </option>
+                {alunos?.map((aluno) => (
+                  <option key={aluno?.nome} value={aluno?.id}>
+                    {aluno?.nome} {aluno?.sobreNome}
+                  </option>
+                ))}
               </Form.Select>
             </Row>
             <Row>
@@ -134,19 +188,34 @@ export default function CadastrarTreinoAluno() {
                 name="categoria"
                 onChange={(e) => handleForm(e)}
               >
-                <option value={"id_1"}>Categoria A</option>
-                <option value={"id_2"}>Categoria B</option>
+                <option key={"0"} value={"0"}>
+                  Selecione
+                </option>
+                {categorias?.map((categoria) => (
+                  <option key={categoria?.categoria} value={categoria?.id}>
+                    {categoria?.categoria}
+                  </option>
+                ))}
               </Form.Select>
             </Row>
             <Row>
               <Form.Label>Sub-Categoria: </Form.Label>
               <Form.Select
                 size="lg"
-                name="subcat"
+                name="subCategoria"
                 onChange={(e) => handleForm(e)}
               >
-                <option value={"id_1"}>Treino A</option>
-                <option value={"id_2"}>Treino B</option>
+                <option key={"0"} value={"0"}>
+                  Selecione
+                </option>
+                {subCategorias?.map((subCategoria) => (
+                  <option
+                    key={subCategoria?.subCategoria}
+                    value={subCategoria?.id}
+                  >
+                    {subCategoria?.subCategoria}
+                  </option>
+                ))}
               </Form.Select>
             </Row>
             <Row>
@@ -155,7 +224,7 @@ export default function CadastrarTreinoAluno() {
                 name="horario"
                 onChange={handleTimeChange}
                 className="form-select form-select-lg"
-                start="04:00"
+                start="05:00"
                 end="22:00"
                 step={60}
                 value={time}
