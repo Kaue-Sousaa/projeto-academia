@@ -30,12 +30,29 @@ export default function CadastrarTreinoAluno() {
   const [alunos, setAlunos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [subCategorias, setSubCategorias] = useState([]);
+  const [treinos, setTreinos] = useState([]);
 
   useEffect(() => {
+    buscarTodosTreino();
     buscarTodasSubCategorias();
     buscarTodasCategorias();
     getAllAluno();
   }, []);
+
+  const buscarTodosTreino = async () => {
+    const response = await api.get("/treino");
+    if (response?.status !== 200) {
+      console.log("nenhum treino encontrado");
+    } else {
+      const treinosData = response?.data.map((treino) => ({
+        id: treino?.id,
+        title: treino?.nome?.toString(),
+        date: moment(treino?.horario).format("YYYY-MM-DD"),
+      }));
+      setTreinos(treinosData);
+      console.log(response?.data);
+    }
+  };
 
   const buscarTodasCategorias = async () => {
     const response = await api.get("/categoria");
@@ -137,18 +154,7 @@ export default function CadastrarTreinoAluno() {
             locale={ptBrLocale}
             dateClick={renderEventContent}
             event
-            events={[
-              {
-                id: "id_022",
-                title: "Aluno 98",
-                date: "2024-04-30",
-              },
-              {
-                id: "id_0225",
-                title: "Aluno 09",
-                date: "2024-04-29",
-              },
-            ]}
+            events={treinos}
           />
         </div>
         <Footer></Footer>

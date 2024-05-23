@@ -1,4 +1,4 @@
-package br.com.academia.strategy;
+package br.com.academia.strategy.TreinoAlunoStrategy;
 
 import br.com.academia.dto.TreinoAlunoDto;
 

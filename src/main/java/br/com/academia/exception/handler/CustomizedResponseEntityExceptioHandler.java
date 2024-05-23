@@ -3,6 +3,7 @@ package br.com.academia.exception.handler;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,9 @@ import org.springframework.web.context.request.WebRequest;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import br.com.academia.exception.ExceptionResponse;
-import br.com.academia.exception.ExistingObject;
+import br.com.academia.exception.InvalidCpfLengthException;
 import br.com.academia.exception.InvalidJwtAuthenticationException;
+import br.com.academia.exception.InvalidPasswordException;
 import br.com.academia.exception.RequiredObjectIsNullException;
 import br.com.academia.exception.ResourceNotFoundException;
 import br.com.academia.exception.ValidFieldResponse;
@@ -26,19 +28,32 @@ import br.com.academia.exception.ValidFieldResponse;
 @RestControllerAdvice
 public class CustomizedResponseEntityExceptioHandler {
 	
-	@ExceptionHandler({RequiredObjectIsNullException.class, MethodArgumentNotValidException.class, ExistingObject.class })
-	public final ResponseEntity<ValidFieldResponse> handleAllException(MethodArgumentNotValidException ex, WebRequest request){
-		BindingResult bindingResult = ex.getBindingResult();
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+    public final ResponseEntity<ValidFieldResponse> handleMethodArgumentNotValidException(
+            MethodArgumentNotValidException ex, 
+            WebRequest request) {
+        BindingResult bindingResult = ex.getBindingResult();
         List<String> errorMessages = new ArrayList<>();
         bindingResult.getFieldErrors().forEach(fieldError -> 
             errorMessages.add(fieldError.getField() + ": " + fieldError.getDefaultMessage())
         );
-		
-		ValidFieldResponse exceptionResponse = new ValidFieldResponse(
-				LocalDateTime.now(), errorMessages , request.getDescription(false));
-		
-		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
-	}
+        
+        return buildResponseEntity(errorMessages, request);
+    }
+
+    @ExceptionHandler({RequiredObjectIsNullException.class, InvalidCpfLengthException.class, InvalidPasswordException.class})
+    public final ResponseEntity<ValidFieldResponse> handleOtherExceptions(
+            Exception ex, 
+            WebRequest request) {
+        List<String> errorMessages = Collections.singletonList(ex.getMessage());
+        return buildResponseEntity(errorMessages, request);
+    }
+
+    private ResponseEntity<ValidFieldResponse> buildResponseEntity(List<String> errorMessages, WebRequest request) {
+        ValidFieldResponse exceptionResponse = new ValidFieldResponse(
+                LocalDateTime.now(), errorMessages, request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public final ResponseEntity<ExceptionResponse> handleNotFoundException(Exception ex, WebRequest request){

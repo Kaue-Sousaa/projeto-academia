@@ -4,10 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class ExistingObject extends RuntimeException{
+public class InvalidCpfLengthException extends RuntimeException{
 	private static final long serialVersionUID = 1L;
 	
-	public ExistingObject(String ex) {
+	public InvalidCpfLengthException(String ex) {
 		super(ex);
 	}
 }

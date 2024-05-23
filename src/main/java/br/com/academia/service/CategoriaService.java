@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.com.academia.dto.CategoriaDto;
-import br.com.academia.exception.ExistingObject;
+import br.com.academia.exception.ExistingObjectException;
 import br.com.academia.exception.ResourceNotFoundException;
 import br.com.academia.model.Categoria;
 import br.com.academia.repository.CategoriaRepository;
@@ -29,7 +29,7 @@ public class CategoriaService {
 	public String salvarCategoria(CategoriaDto categoriaDto) {
 		var categoria = categoriaRepository.findByCategoria(categoriaDto.categoria());
 		if(categoria != null) {
-			throw new ExistingObject("Categoria já cadastrada!");
+			throw new ExistingObjectException("Categoria já cadastrada!");
 		}else {
 			categoriaRepository.save(new Categoria(categoriaDto));
 			return "Cadastro bem sucedido!";

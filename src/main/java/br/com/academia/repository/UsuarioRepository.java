@@ -12,4 +12,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 			WHERE cpf = :cpf
 			""", nativeQuery = true)
 	Usuario findByCpf(String cpf);
+
+	Usuario findByEmail(String email);
 }

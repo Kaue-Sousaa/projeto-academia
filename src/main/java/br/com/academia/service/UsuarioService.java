@@ -9,12 +9,14 @@ import br.com.academia.dto.CadastroUsuarioDto;
 import br.com.academia.exception.ResourceNotFoundException;
 import br.com.academia.model.Usuario;
 import br.com.academia.repository.UsuarioRepository;
+import br.com.academia.strategy.CadastroUsuarioStrategy.ValidaCadastroUsuarioStrategy;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class UsuarioService{
 	
+	private final List<ValidaCadastroUsuarioStrategy> listValidateField;
 	private final UsuarioRepository usuarioRepository;
 	
 	public CadastroUsuarioDto buscarCadastroPorId(Integer id)  {
@@ -29,15 +31,8 @@ public class UsuarioService{
 	}
 	
 	public String salvarCadastro(CadastroUsuarioDto cadastroDto) {
-		var save = new String();
-		var entity = usuarioRepository.findByCpf(cadastroDto.cpf());
-		if(entity == null) {
-			if(!isValidCampoConfirmSenha(cadastroDto.senha(), cadastroDto.confirmarSenha())) {
-				save = "As senhas não são iguais. Tente novamente.";
-			}else
-				save =  salvarUsuario(cadastroDto);
-		}
-		return save;
+		listValidateField.forEach(field -> field.validarCampos(cadastroDto));
+		return salvarUsuario(cadastroDto);
 	}
 	
 	public CadastroUsuarioDto atualizarCadastro(CadastroUsuarioDto cliente){
@@ -69,10 +64,6 @@ public class UsuarioService{
 		cadastroUsuario.setSenha(passwordEncoder(cadastroDto.senha()));
 		usuarioRepository.save(cadastroUsuario);
 		return "Usuário cadastrado com sucesso!";
-	}
-
-	private boolean isValidCampoConfirmSenha(String senha, String confirmSenha) {
-		return senha.equals(confirmSenha);
 	}
 	
 	private String passwordEncoder(String senha) {

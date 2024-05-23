@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.com.academia.dto.SubCategoriaDto;
-import br.com.academia.exception.ExistingObject;
+import br.com.academia.exception.ExistingObjectException;
 import br.com.academia.exception.ResourceNotFoundException;
 import br.com.academia.model.SubCategoria;
 import br.com.academia.repository.SubCategoriaRepository;
@@ -30,7 +30,7 @@ public class SubCategoriaService {
 	public String salvarSubCategoria(SubCategoriaDto subCategoria) {
 		var entity = repository.findBySubCategoria(subCategoria.subCategoria());
 		if(entity != null) {
-			throw new ExistingObject("SubCategoria já cadastrada!");
+			throw new ExistingObjectException("SubCategoria já cadastrada!");
 		}
 		repository.save(new SubCategoria(subCategoria));
 		return "SubCategoria cadastrada com sucesso!";

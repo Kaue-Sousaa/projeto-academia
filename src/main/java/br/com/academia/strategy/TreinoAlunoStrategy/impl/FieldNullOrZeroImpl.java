@@ -1,19 +1,20 @@
-package br.com.academia.strategy.impl;
+package br.com.academia.strategy.TreinoAlunoStrategy.impl;
 
 import org.springframework.stereotype.Component;
 
 import br.com.academia.dto.TreinoAlunoDto;
-import br.com.academia.strategy.ValidarTreinoAlunoStrategy;
+import br.com.academia.exception.RequiredObjectIsNullException;
+import br.com.academia.strategy.TreinoAlunoStrategy.ValidarTreinoAlunoStrategy;
 import lombok.SneakyThrows;
 
 @Component
-public class FieldNullOrZero implements ValidarTreinoAlunoStrategy{
+public class FieldNullOrZeroImpl implements ValidarTreinoAlunoStrategy{
 
     @SneakyThrows
     @Override
     public void validar(TreinoAlunoDto request) {
         if(!isValidFieldNullAndZero(request)){
-            throw new UnsupportedOperationException("O(s) campo(s) não pode(m) ter o valor vazio"); 
+            throw new RequiredObjectIsNullException("O(s) campo(s) não pode(m) ter o valor vazio"); 
         }
     }
 
