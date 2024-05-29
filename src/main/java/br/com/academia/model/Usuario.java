@@ -43,7 +43,7 @@ public class Usuario implements UserDetails{
 	@Column(name = "sobre_nome", nullable = false)
 	private String sobreNome;
 	
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 	
 	@Column(name = "cpf", unique = true, nullable = false)

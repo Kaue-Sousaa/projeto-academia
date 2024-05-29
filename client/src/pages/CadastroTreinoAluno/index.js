@@ -18,14 +18,17 @@ export default function CadastrarTreinoAluno() {
   const user = localStorage.getItem("sessionName");
   const [showModalRegister, setShowModalRegister] = useState(false);
   const [showModalUserList, setShowModalUserList] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [idToRemove, setIdToRemove] = useState(null);
   const [form, setForm] = useState({
-    aluno: "0",
+    nomeAluno: "0",
     categoria: "0",
     subCategoria: "0",
     horario: "0",
   });
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(0);
+  const [dados, setDados] = useState([]);
 
   const [alunos, setAlunos] = useState([]);
   const [categorias, setCategorias] = useState([]);
@@ -44,13 +47,20 @@ export default function CadastrarTreinoAluno() {
     if (response?.status !== 200) {
       console.log("nenhum treino encontrado");
     } else {
-      const treinosData = response?.data.map((treino) => ({
-        id: treino?.id,
-        title: treino?.nome?.toString(),
-        date: moment(treino?.horario).format("YYYY-MM-DD"),
-      }));
+      const treinosData = response?.data.map((treino) => {
+        const data = treino?.horario
+          ?.split(" ")[0]
+          ?.split("/")
+          ?.reverse()
+          ?.join("-");
+
+        return {
+          id: treino?.id,
+          title: treino?.nomeAluno,
+          date: data,
+        };
+      });
       setTreinos(treinosData);
-      console.log(response?.data);
     }
   };
 
@@ -60,7 +70,6 @@ export default function CadastrarTreinoAluno() {
       console.log("nenhuma categoria encontrada");
     } else {
       setCategorias(response?.data);
-      console.log(response?.data);
     }
   };
 
@@ -70,7 +79,6 @@ export default function CadastrarTreinoAluno() {
       console.log("nenhuma sub-categoria encontrada");
     } else {
       setSubCategorias(response?.data);
-      console.log(response?.data);
     }
   };
 
@@ -80,7 +88,6 @@ export default function CadastrarTreinoAluno() {
       console.log("Nenhum aluno encontrado!");
     } else {
       setAlunos(response?.data);
-      console.log(response?.data);
     }
   };
 
@@ -88,17 +95,20 @@ export default function CadastrarTreinoAluno() {
     setTime(time);
     setForm({
       ...form,
-      horario: time,
+      horario: `${date}  ${time}`,
     });
   };
 
   function renderEventContent(eventInfo) {
     setDate(moment(eventInfo?.date).format("DD/MM/YYYY"));
-
+    setForm({
+      ...form,
+      date: moment(eventInfo?.date).format("DD/MM/YYYY"),
+    });
     if (eventInfo?.jsEvent?.srcElement?.childElementCount === 1) {
       setShowModalRegister(true);
     } else {
-      setShowModalUserList(true);
+      getAlunoForData(moment(eventInfo?.date).format("DD-MM-YYYY"));
     }
   }
 
@@ -111,29 +121,90 @@ export default function CadastrarTreinoAluno() {
 
   const handleSubmit = async (values) => {
     values.preventDefault();
-    console.log(form);
     try {
       const response = await api.post("/treino/cadastro", form);
       if (response?.status === 200) {
-        console.log(response?.data);
+        buscarTodosTreino();
+        setShowModalRegister(false);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const [dados, setDados] = useState([
-    { id: 1, nome: "João", horario: 30 },
-    { id: 2, nome: "Maria", horario: 25 },
-    { id: 3, nome: "José", horario: 40 },
-  ]);
+  const colunas = ["Nome", "Data", "Horário", "Treino"];
 
-  const colunas = ["ID", "Nome", "Horário"];
+  const getAlunoForData = async (dia) => {
+    try {
+      const response = await api.get(`/treino/alunos/${dia}`);
+      if (response?.status !== 200) {
+        console.log("Nenhum aluno encontrado!");
+      } else {
+        const nomeSubCatPromises = response?.data?.map(async (alunoDay) => {
+          const subCategoria = await getSubCategoriaPorId(
+            alunoDay?.subCategoria
+          );
+          return {
+            ...alunoDay,
+            nomeSubCategoria: subCategoria?.subCategoria,
+          };
+        });
 
-  const handleRemove = (index) => {
-    const novosDados = [...dados];
-    novosDados.splice(index, 1);
-    setDados(novosDados);
+        const alunosDataComSubCat = await Promise.all(nomeSubCatPromises);
+
+        let alunosData = alunosDataComSubCat?.map((alunoDay) => ({
+          id: alunoDay?.id,
+          nome: alunoDay?.nomeAluno,
+          data: alunoDay?.horario?.split(" ")[0],
+          horario: (
+            <>
+              <TimePicker disabled value={alunoDay?.horario?.split(" ")[1]} />
+            </>
+          ),
+          treino: alunoDay?.nomeSubCategoria,
+        }));
+
+        setDados(alunosData);
+        setShowModalUserList(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getSubCategoriaPorId = async (id) => {
+    try {
+      const response = await api.get(`/subCategoria/${id}`);
+      if (response?.status !== 200) {
+        console.log("Nenhuma sub-categoria encontrada");
+        return null;
+      }
+      return response?.data;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  const handleRemove = async (id) => {
+    setShowConfirmationModal(true);
+    setIdToRemove(id);
+  };
+
+  const confirmExclusion = async () => {
+    try {
+      await api.delete(`/treino/${idToRemove}`);
+      const novosDados = dados.filter((item) => item.id !== idToRemove);
+      setDados(novosDados);
+      buscarTodosTreino();
+      setShowConfirmationModal(false);
+    } catch (error) {
+      console.error("Erro ao excluir treino:", error);
+    }
+  };
+
+  const cancelExclusion = () => {
+    setShowConfirmationModal(false);
   };
 
   return (
@@ -153,7 +224,6 @@ export default function CadastrarTreinoAluno() {
             }}
             locale={ptBrLocale}
             dateClick={renderEventContent}
-            event
             events={treinos}
           />
         </div>
@@ -174,14 +244,17 @@ export default function CadastrarTreinoAluno() {
               <Form.Label>Aluno: </Form.Label>
               <Form.Select
                 size="lg"
-                name="aluno"
+                name="nomeAluno"
                 onChange={(e) => handleForm(e)}
               >
                 <option key={"0"} value={"0"}>
                   Selecione
                 </option>
                 {alunos?.map((aluno) => (
-                  <option key={aluno?.nome} value={aluno?.id}>
+                  <option
+                    key={aluno?.id}
+                    value={aluno?.nome + " " + aluno?.sobreNome}
+                  >
                     {aluno?.nome} {aluno?.sobreNome}
                   </option>
                 ))}
@@ -258,7 +331,29 @@ export default function CadastrarTreinoAluno() {
             padding: "1rem 5rem !important",
           }}
         >
-          <Tabela colunas={colunas} data={dados} onRemove={handleRemove} />
+          <Tabela
+            colunas={colunas}
+            data={dados}
+            onRemove={(id) => handleRemove(id)}
+          />
+          <Modal
+            show={showConfirmationModal}
+            onHide={cancelExclusion}
+            keyboard={false}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Confirmação</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Tem certeza que deseja excluir?</Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={confirmExclusion}>
+                Confirmar
+              </Button>
+              <Button variant="secondary" onClick={cancelExclusion}>
+                Cancelar
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Modal.Body>
       </Modal>
     </div>

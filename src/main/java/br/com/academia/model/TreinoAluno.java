@@ -14,31 +14,31 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(schema = "academia",name = "treino_aluno")
+@Table(schema = "academia", name = "treino_aluno")
 @AllArgsConstructor
 @NoArgsConstructor
 public class TreinoAluno {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq_cadastro_treino_aluno")
 	@SequenceGenerator(name = "seq_cadastro_treino_aluno", sequenceName = "academia.seq_cadastro_treino_aluno", initialValue = 1, allocationSize = 1)
 	private Integer id;
-	
-	@Column(name = "id_nome_aluno", nullable = false)
-	private Integer aluno;
-	
+
+	@Column(name = "nomeAluno", nullable = false)
+	private String nomeAluno;
+
 	@Column(name = "id_categoria", nullable = false)
 	private Integer categoria;
-	
+
 	@Column(name = "id_sub_categoria", nullable = false)
 	private Integer subCategoria;
-	
+
 	@Column(name = "horario", nullable = false)
 	private String horario;
-	
+
 	public TreinoAluno(TreinoAlunoDto treinoAlunoDto) {
 		this.id = treinoAlunoDto.id();
-		this.aluno = treinoAlunoDto.aluno();
+		this.nomeAluno = treinoAlunoDto.nomeAluno();
 		this.categoria = treinoAlunoDto.categoria();
 		this.subCategoria = treinoAlunoDto.subCategoria();
 		this.horario = treinoAlunoDto.horario();

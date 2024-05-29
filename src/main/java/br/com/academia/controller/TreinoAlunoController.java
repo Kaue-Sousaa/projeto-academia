@@ -21,31 +21,38 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("treino")
 @RequiredArgsConstructor
 public class TreinoAlunoController {
-	
+
 	private final TreinoAlunoService treinoService;
-	
+
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<TreinoAlunoDto>> buscarTodosTreino(){
+	public ResponseEntity<List<TreinoAlunoDto>> buscarTodosTreino() {
 		return ResponseEntity.ok(treinoService.buscarTodosTreinoAluno());
 	}
-	
+
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<TreinoAlunoDto> buscarTreinoAlunoPorId(@PathVariable Integer id){
+	public ResponseEntity<TreinoAlunoDto> buscarTreinoAlunoPorId(@PathVariable Integer id) {
 		return ResponseEntity.ok(treinoService.buscarTreinoPorIdAluno(id));
 	}
-	
-	@PostMapping(value = "cadastro", consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@GetMapping(value = "/alunos/{date}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<TreinoAlunoDto>> buscarTreinoAlunoPorData(@PathVariable String date) {
+		var listTreinoDia = treinoService.buscarTreinoAlunoPorData(date);
+		if(listTreinoDia.isEmpty()) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(listTreinoDia);
+	}
+
+	@PostMapping(value = "cadastro", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void salvarTreino(@RequestBody TreinoAlunoDto treinoAluno) {
 		treinoService.salvarTreino(treinoAluno);
-	} 
-	
-	@PutMapping(value = "atualizar", consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<TreinoAlunoDto> atualizarTreino(@RequestBody TreinoAlunoDto treinoAluno){
+	}
+
+	@PutMapping(value = "atualizar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<TreinoAlunoDto> atualizarTreino(@RequestBody TreinoAlunoDto treinoAluno) {
 		return ResponseEntity.ok(treinoService.atualizarTreino(treinoAluno));
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public void deletarTreino(@PathVariable Integer id) {
 		treinoService.deletarTreino(id);

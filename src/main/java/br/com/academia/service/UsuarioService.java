@@ -21,7 +21,7 @@ public class UsuarioService{
 	
 	public CadastroUsuarioDto buscarCadastroPorId(Integer id)  {
 		var entity = usuarioRepository.findById(id).orElseThrow(() -> 
-			new ResourceNotFoundException("Cliente não encontrado"));
+			new ResourceNotFoundException("Usuário não encontrado"));
 		return new CadastroUsuarioDto(entity);
 	}
 	

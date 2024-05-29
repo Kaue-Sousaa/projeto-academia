@@ -8,25 +8,25 @@ import br.com.academia.strategy.TreinoAlunoStrategy.ValidarTreinoAlunoStrategy;
 import lombok.SneakyThrows;
 
 @Component
-public class FieldNullOrZeroImpl implements ValidarTreinoAlunoStrategy{
+public class FieldNullOrZeroImpl implements ValidarTreinoAlunoStrategy {
 
     @SneakyThrows
     @Override
     public void validar(TreinoAlunoDto request) {
-        if(!isValidFieldNullAndZero(request)){
-            throw new RequiredObjectIsNullException("O(s) campo(s) não pode(m) ter o valor vazio"); 
+        if (!isValidFieldNullAndZero(request)) {
+            throw new RequiredObjectIsNullException("O(s) campo(s) não pode(m) ter o valor vazio");
         }
     }
 
-    private boolean isValidFieldNullAndZero(TreinoAlunoDto treinoAlunoDto){
-        return validateAlunoField(treinoAlunoDto.aluno())
-            && validateCategoriaField(treinoAlunoDto.categoria())
-            && validateSubCategoriaField(treinoAlunoDto.subCategoria())
-            && validateHorarioField(treinoAlunoDto.horario());
+    private boolean isValidFieldNullAndZero(TreinoAlunoDto treinoAlunoDto) {
+        return validateAlunoField(treinoAlunoDto.nomeAluno())
+                && validateCategoriaField(treinoAlunoDto.categoria())
+                && validateSubCategoriaField(treinoAlunoDto.subCategoria())
+                && validateHorarioField(treinoAlunoDto.horario());
     }
 
-    private boolean validateAlunoField(Integer idAluno) {
-        return idAluno != null && idAluno != 0;
+    private boolean validateAlunoField(String nomeAluno) {
+        return nomeAluno != null && !"0".equals(nomeAluno);
     }
 
     private boolean validateCategoriaField(Integer categoria) {
