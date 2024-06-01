@@ -15,4 +15,11 @@ public interface TreinoAlunoRepository extends JpaRepository<TreinoAluno, Intege
 			WHERE horario LIKE CONCAT(:date, '%')
 			""", nativeQuery = true)
 	Optional<List<TreinoAluno>> buscarTreinoAlunoPorData(String date);
+	
+	@Query(value = """
+			SELECT * FROM academia.treino_aluno
+			WHERE id_usuario = :id
+			""", nativeQuery = true)
+	List<TreinoAluno> buscarTreinoPorIdUsuario(Integer id);
+	
 }

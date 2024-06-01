@@ -17,8 +17,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TreinoAlunoService {
 
-	private final ValidarTreinoAlunoStrategy camposValidateStrategy;
+	private final List<ValidarTreinoAlunoStrategy> camposValidateStrategy;
 	private final TreinoAlunoRepository treinoRepository;
+	private final UsuarioService userService;
 
 	public List<TreinoAlunoDto> buscarTodosTreinoAluno() {
 		return treinoRepository.findAll().stream().map(TreinoAlunoDto::new).toList();
@@ -27,6 +28,16 @@ public class TreinoAlunoService {
 	public TreinoAlunoDto buscarTreinoPorIdAluno(Integer id) {
 		return new TreinoAlunoDto(treinoRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Treino não encontrado")));
+	}
+	
+	public List<TreinoAlunoDto> buscarListaTreinoAlunoPorEmail(String email) {
+		List<TreinoAlunoDto> listTreinoAluno = new ArrayList<>();
+		var user = userService.buscarUsarioPorEmail(email);
+		if(user != null) {
+			listTreinoAluno = treinoRepository.buscarTreinoPorIdUsuario(user.id())
+					.stream().map(TreinoAlunoDto::new).toList();
+		}
+		return listTreinoAluno;
 	}
 
 	public List<TreinoAlunoDto> buscarTreinoAlunoPorData(String date) {
@@ -65,7 +76,7 @@ public class TreinoAlunoService {
 	}
 
 	private void validaCamposTreinoAluno(TreinoAlunoDto treinoAlunoDto) {
-		camposValidateStrategy.validar(treinoAlunoDto);
+		camposValidateStrategy.forEach(field -> field.validar(treinoAlunoDto));
 	}
 	
 	private List<TreinoAluno> consultaTreinoAlunoPorData(String data){

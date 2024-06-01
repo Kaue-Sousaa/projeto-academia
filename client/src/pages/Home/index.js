@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Fullcalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -8,19 +8,45 @@ import { Modal, Col, Row } from "react-bootstrap";
 
 import Head from "../../component/Header";
 import Footer from "../../component/Footer";
+import moment from "moment";
 import "./styles.css";
+import api from "../../services/api";
 
 export default function Home() {
   const user = localStorage.getItem("sessionName");
   const [showModal, setShowModal] = useState(false);
-  const [aula, setAula] = useState(null);
+  const [dados, setDados] = useState();
+  const [events, setEvents] = useState([]);
+  const [treino, setTreino] = useState(null);
+
+  useEffect(() => {
+    const usuario = localStorage.getItem("ACAD");
+    getTreinoAlunoPorEmail(JSON.parse(usuario)?.email);
+  }, []);
+
+  const getTreinoAlunoPorEmail = async (email) => {
+    const response = await api.get(`/treino/aluno?email=${email}`);
+    if (response?.status === 200) {
+      const treinosData = response?.data.map((treino) => {
+        const data = treino?.horario
+          ?.split(" ")[0]
+          ?.split("/")
+          ?.reverse()
+          ?.join("-");
+
+        return {
+          id: treino?.id,
+          title: treino?.nomeAluno,
+          date: data,
+        };
+      });
+      setTreino(treinosData);
+    }
+  };
 
   function renderEventContent(eventInfo) {
-    setAula({
-      title: eventInfo?.event?._def?.title,
-      id: eventInfo?.event?._def?.publicId,
-      video: urlVideos[eventInfo?.event?._def?.publicId],
-      descricao: eventInfo?.event?._def?.extendedProps?.descricao,
+    setTreino({
+      ...treino,
     });
 
     setShowModal(!showModal);
@@ -33,7 +59,7 @@ export default function Home() {
 
   return (
     <div className="principal">
-      <Head name={user}></Head>
+      <Head name={user?.nomeAluno}></Head>
       <div className="home-container">
         <h1>Seja Bem Vindo</h1>
         <div className="calendar-container">
@@ -42,25 +68,13 @@ export default function Home() {
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView={"dayGridMonth"}
             headerToolbar={{
-              start: "",
+              start: "today",
               center: "title",
+              end: "prev,next",
             }}
             locale={ptBrLocale}
             eventClick={renderEventContent}
-            events={[
-              {
-                id: "SUPERIORES",
-                title: "Aula de superiores",
-                date: "2024-04-29",
-                descricao: "addasdsdsadasdasdsadsa",
-              },
-              {
-                id: "INFERIORES",
-                title: "Aula de inferiores",
-                date: "2024-04-29",
-                descricao: "addasdsdsadasdasdsadsa",
-              },
-            ]}
+            events={treino}
           />
         </div>
         <Footer></Footer>
@@ -72,7 +86,7 @@ export default function Home() {
         }}
       >
         <Modal.Header closeButton>
-          <Modal.Title>{aula?.title}:</Modal.Title>
+          <Modal.Title>{treino?.title}:</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ display: "flex", justifyContent: "center" }}>
           <Row>
@@ -80,7 +94,7 @@ export default function Home() {
               <iframe
                 width="560"
                 height="315"
-                src={aula?.video}
+                src={treino?.video}
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -89,7 +103,7 @@ export default function Home() {
               ></iframe>
             </Col>
             <Col>
-              <p style={{ color: "#333" }}>{aula?.descricao}</p>
+              <p style={{ color: "#333" }}>{treino?.descricao}</p>
             </Col>
           </Row>
         </Modal.Body>

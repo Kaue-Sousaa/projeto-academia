@@ -23,7 +23,10 @@ public class TreinoAluno {
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq_cadastro_treino_aluno")
 	@SequenceGenerator(name = "seq_cadastro_treino_aluno", sequenceName = "academia.seq_cadastro_treino_aluno", initialValue = 1, allocationSize = 1)
 	private Integer id;
-
+	
+	@Column(name = "id_usuario", nullable = false)
+	private Integer idUsuario;
+	
 	@Column(name = "nomeAluno", nullable = false)
 	private String nomeAluno;
 
@@ -38,6 +41,7 @@ public class TreinoAluno {
 
 	public TreinoAluno(TreinoAlunoDto treinoAlunoDto) {
 		this.id = treinoAlunoDto.id();
+		this.idUsuario = treinoAlunoDto.idUsuario();
 		this.nomeAluno = treinoAlunoDto.nomeAluno();
 		this.categoria = treinoAlunoDto.categoria();
 		this.subCategoria = treinoAlunoDto.subCategoria();

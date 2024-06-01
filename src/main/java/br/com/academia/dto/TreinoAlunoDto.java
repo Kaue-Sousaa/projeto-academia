@@ -4,6 +4,8 @@ import br.com.academia.model.TreinoAluno;
 
 public record TreinoAlunoDto(
 		Integer id,
+		
+		Integer idUsuario,
 
 		String nomeAluno,
 
@@ -15,7 +17,7 @@ public record TreinoAlunoDto(
 
 ) {
 	public TreinoAlunoDto(TreinoAluno treinoAluno) {
-		this(treinoAluno.getId(), treinoAluno.getNomeAluno(), treinoAluno.getCategoria(), treinoAluno.getSubCategoria(),
-				treinoAluno.getHorario());
+		this(treinoAluno.getId(), treinoAluno.getIdUsuario(), treinoAluno.getNomeAluno(), treinoAluno.getCategoria(),
+				treinoAluno.getSubCategoria(), treinoAluno.getHorario());
 	}
 }

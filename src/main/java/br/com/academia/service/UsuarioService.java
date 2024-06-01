@@ -30,6 +30,11 @@ public class UsuarioService{
 		return entity.stream().map(CadastroUsuarioDto::new).toList();
 	}
 	
+	public CadastroUsuarioDto buscarUsarioPorEmail(String email) {
+		return new CadastroUsuarioDto(usuarioRepository.findByEmail(email)
+				.orElseThrow(() -> new ResourceNotFoundException("Usuário nâo encontrado")));
+	}
+	
 	public String salvarCadastro(CadastroUsuarioDto cadastroDto) {
 		listValidateField.forEach(field -> field.validarCampos(cadastroDto));
 		return salvarUsuario(cadastroDto);

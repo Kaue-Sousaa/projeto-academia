@@ -9,7 +9,6 @@ const cleanSession = () => {
 const auth = {
   getRoles() {
     const authData = localStorage.getItem(AUTH);
-
     if (authData) {
       const { role } = JSON.parse(authData);
       return [role];
@@ -18,8 +17,7 @@ const auth = {
   },
 
   isAuthenticated() {
-    if (localStorage.getItem(AUTH) !== null) return true;
-    return false;
+    return localStorage.getItem(AUTH) !== null;
   },
 
   login(authData) {
@@ -41,6 +39,11 @@ const auth = {
       .catch(() => {
         cleanSession();
       });
+  },
+
+  getUser() {
+    const authData = localStorage.getItem(AUTH);
+    return authData ? JSON.parse(authData) : null;
   },
 };
 

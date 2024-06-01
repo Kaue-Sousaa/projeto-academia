@@ -20,7 +20,9 @@ export default function CadastrarTreinoAluno() {
   const [showModalUserList, setShowModalUserList] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [idToRemove, setIdToRemove] = useState(null);
+  const [alunoIdMap, setAlunoIdMap] = useState({});
   const [form, setForm] = useState({
+    idUsuario: "0",
     nomeAluno: "0",
     categoria: "0",
     subCategoria: "0",
@@ -87,7 +89,15 @@ export default function CadastrarTreinoAluno() {
     if (response?.status !== 200) {
       console.log("Nenhum aluno encontrado!");
     } else {
-      setAlunos(response?.data);
+      const alunosData = response?.data;
+      setAlunos(alunosData);
+
+      const map = {};
+      alunosData.forEach((aluno) => {
+        const nomeCompleto = `${aluno?.nome} ${aluno?.sobreNome}`;
+        map[nomeCompleto] = aluno?.id;
+      });
+      setAlunoIdMap(map);
     }
   };
 
@@ -113,9 +123,13 @@ export default function CadastrarTreinoAluno() {
   }
 
   const handleForm = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
+    const { name, value } = e.target;
+    setForm((prevForm) => {
+      const newForm = { ...prevForm, [name]: value };
+      if (name === "nomeAluno") {
+        newForm.idUsuario = alunoIdMap[value] || "0";
+      }
+      return newForm;
     });
   };
 
@@ -253,7 +267,7 @@ export default function CadastrarTreinoAluno() {
                 {alunos?.map((aluno) => (
                   <option
                     key={aluno?.id}
-                    value={aluno?.nome + " " + aluno?.sobreNome}
+                    value={`${aluno?.nome} ${aluno?.sobreNome}`}
                   >
                     {aluno?.nome} {aluno?.sobreNome}
                   </option>

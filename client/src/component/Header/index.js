@@ -4,11 +4,20 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import auth from "../../services/auth";
 import { BsPersonFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 import "./styles.css";
 
-export default function HeadeWeb(props) {
+export default function HeaderWeb(props) {
   const storage = auth.isAuthenticated();
+  const navigate = useNavigate();
+  const user = storage ? auth.getUser() : null;
+
+  const handleLogout = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    navigate("/");
+  };
 
   return (
     <div className="cabecalho">
@@ -40,13 +49,17 @@ export default function HeadeWeb(props) {
                     marginRight: "5%",
                   }}
                 />
-                Kaue Sousa
+                {user ? user.usuario : "Usuário"}
               </>
             }
           >
-            <Dropdown.Item as="button">E-mail: k@gmail.com</Dropdown.Item>
-            <Dropdown.Item as="button">Editar senha</Dropdown.Item>
-            <Dropdown.Item as="button">Sair</Dropdown.Item>
+            <Dropdown.Item as="button">
+              E-mail: {user ? user.email : "email@exemplo.com"}
+            </Dropdown.Item>
+            <Dropdown.Item as="button">Editar</Dropdown.Item>
+            <Dropdown.Item as="button" onClick={handleLogout}>
+              Sair
+            </Dropdown.Item>
           </DropdownButton>
         )}
       </nav>
