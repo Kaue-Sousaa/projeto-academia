@@ -25,7 +25,6 @@ export default function Login() {
         );
         navigate("/home", {});
       }
-      console.log("values: ", form);
     } catch (error) {
       console.log(error);
     }

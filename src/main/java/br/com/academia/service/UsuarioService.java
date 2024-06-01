@@ -10,6 +10,8 @@ import br.com.academia.exception.ResourceNotFoundException;
 import br.com.academia.model.Usuario;
 import br.com.academia.repository.UsuarioRepository;
 import br.com.academia.strategy.CadastroUsuarioStrategy.ValidaCadastroUsuarioStrategy;
+import br.com.academia.strategy.CadastroUsuarioStrategy.impl.PasswordhValidationImpl;
+import br.com.academia.strategy.atualizaCadastroStrategy.ValidaAtualizacaoCadastroStrategy;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -17,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 public class UsuarioService{
 	
 	private final List<ValidaCadastroUsuarioStrategy> listValidateField;
+	private final PasswordhValidationImpl passwordValidation;
+	private final List<ValidaAtualizacaoCadastroStrategy> atualizaStrategy;
 	private final UsuarioRepository usuarioRepository;
 	
 	public CadastroUsuarioDto buscarCadastroPorId(Integer id)  {
@@ -45,19 +49,14 @@ public class UsuarioService{
 			var entity = usuarioRepository.findById(cliente.id()).orElseThrow(()
 					-> new ResourceNotFoundException("Usuário não encontrado"));
 			
-			entity.setNome(cliente.nome());
-			entity.setCpf(cliente.cpf());
-			entity.setDataNascimento(cliente.dataNascimento());
-			entity.setTelefone(cliente.telefone());
-			entity.setEmail(cliente.email());
-			entity.setGenero(cliente.genero());
+			atualizarDadosDoCadastro(cliente, entity);
 			
 			return new CadastroUsuarioDto(usuarioRepository.save(entity));
 		} catch (Exception e) {
 			throw new ResourceNotFoundException(e.getMessage());
 		}
 	}
-	
+
 	public void deletarUsuario(Integer id) {
 		var entity = usuarioRepository.findById(id).orElseThrow(() -> 
 				new ResourceNotFoundException("Usuário não encontrado"));
@@ -73,5 +72,21 @@ public class UsuarioService{
 	
 	private String passwordEncoder(String senha) {
 		return new BCryptPasswordEncoder().encode(senha); 
+	}
+	
+	private void atualizarDadosDoCadastro(CadastroUsuarioDto cliente, Usuario entity) {
+	    atualizarSenhaSeNecessario(cliente, entity);
+
+	    entity.setNome(cliente.nome());
+	    entity.setCpf(cliente.cpf());
+	    entity.setDataNascimento(cliente.dataNascimento());
+	    entity.setTelefone(cliente.telefone());
+	    entity.setEmail(cliente.email());
+	    entity.setGenero(cliente.genero());
+	}
+
+	private void atualizarSenhaSeNecessario(CadastroUsuarioDto cliente, Usuario entity) {
+		passwordValidation.validarCampos(cliente);
+		entity.setSenha(passwordEncoder(cliente.senha()));
 	}
 }

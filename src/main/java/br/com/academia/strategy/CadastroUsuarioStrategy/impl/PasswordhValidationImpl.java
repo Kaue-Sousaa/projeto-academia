@@ -17,6 +17,6 @@ public class PasswordhValidationImpl implements ValidaCadastroUsuarioStrategy{
     }
 
     private boolean isValidCampoConfirmSenha(String senha, String confirmSenha) {
-		return senha.equals(confirmSenha);
+		return senha != null && senha.equals(confirmSenha);
 	}
 }

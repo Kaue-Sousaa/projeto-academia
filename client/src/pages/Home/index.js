@@ -8,7 +8,6 @@ import { Modal, Col, Row } from "react-bootstrap";
 
 import Head from "../../component/Header";
 import Footer from "../../component/Footer";
-import moment from "moment";
 import "./styles.css";
 import api from "../../services/api";
 

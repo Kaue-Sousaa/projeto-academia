@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import auth from "../../services/auth";
 import { BsPersonFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import EditUserModal from "../EditUserModal";
 
 import "./styles.css";
 
@@ -13,10 +14,19 @@ export default function HeaderWeb(props) {
   const navigate = useNavigate();
   const user = storage ? auth.getUser() : null;
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
     navigate("/");
+  };
+  const handleEditClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -56,13 +66,16 @@ export default function HeaderWeb(props) {
             <Dropdown.Item as="button">
               E-mail: {user ? user.email : "email@exemplo.com"}
             </Dropdown.Item>
-            <Dropdown.Item as="button">Editar</Dropdown.Item>
+            <Dropdown.Item as="button" onClick={handleEditClick}>
+              Editar
+            </Dropdown.Item>
             <Dropdown.Item as="button" onClick={handleLogout}>
               Sair
             </Dropdown.Item>
           </DropdownButton>
         )}
       </nav>
+      <EditUserModal show={showModal} handleClose={handleCloseModal} />
     </div>
   );
 }
