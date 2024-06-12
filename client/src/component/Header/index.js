@@ -42,7 +42,7 @@ export default function HeaderWeb(props) {
       </div>
       <nav>
         <Link to="/">INICIO</Link>
-        <Link to="/about">SOBRE NÓS</Link>
+        {/* <Link to="/about">SOBRE NÓS</Link> */}
         {!storage && <Link to="/login">LOGIN</Link>}
 
         {storage && (
@@ -63,9 +63,9 @@ export default function HeaderWeb(props) {
               </>
             }
           >
-            <Dropdown.Item as="button">
+            {/* <Dropdown.Item as="button">
               E-mail: {user ? user.email : "email@exemplo.com"}
-            </Dropdown.Item>
+            </Dropdown.Item> */}
             <Dropdown.Item as="button" onClick={handleEditClick}>
               Editar
             </Dropdown.Item>

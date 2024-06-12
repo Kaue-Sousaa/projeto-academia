@@ -1,8 +1,8 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
-const Tabela = ({ colunas, data, onRemove }) => {
+const Tabela = ({ colunas, data, onRemove, onEdit, isAdmin }) => {
   return (
     <Table striped bordered hover>
       <thead>
@@ -21,9 +21,14 @@ const Tabela = ({ colunas, data, onRemove }) => {
             <td>{item.horario}</td>
             <td>{item.treino}</td>
             <td>
-              <button onClick={() => onRemove(item.id)}>
-                <AiOutlineDelete />
+              <button onClick={() => onEdit(item.id)}>
+                <AiOutlineEdit />
               </button>
+              {isAdmin && (
+                <button onClick={() => onRemove(item.id)}>
+                  <AiOutlineDelete />
+                </button>
+              )}
             </td>
           </tr>
         ))}

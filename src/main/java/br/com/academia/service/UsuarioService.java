@@ -11,7 +11,6 @@ import br.com.academia.model.Usuario;
 import br.com.academia.repository.UsuarioRepository;
 import br.com.academia.strategy.CadastroUsuarioStrategy.ValidaCadastroUsuarioStrategy;
 import br.com.academia.strategy.CadastroUsuarioStrategy.impl.PasswordhValidationImpl;
-import br.com.academia.strategy.atualizaCadastroStrategy.ValidaAtualizacaoCadastroStrategy;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,7 +19,6 @@ public class UsuarioService{
 	
 	private final List<ValidaCadastroUsuarioStrategy> listValidateField;
 	private final PasswordhValidationImpl passwordValidation;
-	private final List<ValidaAtualizacaoCadastroStrategy> atualizaStrategy;
 	private final UsuarioRepository usuarioRepository;
 	
 	public CadastroUsuarioDto buscarCadastroPorId(Integer id)  {
@@ -86,7 +84,9 @@ public class UsuarioService{
 	}
 
 	private void atualizarSenhaSeNecessario(CadastroUsuarioDto cliente, Usuario entity) {
-		passwordValidation.validarCampos(cliente);
-		entity.setSenha(passwordEncoder(cliente.senha()));
+		if(cliente.senha() != null && cliente.confirmarSenha() != null) {
+			passwordValidation.validarCampos(cliente);
+			entity.setSenha(passwordEncoder(cliente.senha()));
+		}
 	}
 }

@@ -19,6 +19,7 @@ export default function CadastrarTreinoAluno() {
   const [showModalRegister, setShowModalRegister] = useState(false);
   const [showModalUserList, setShowModalUserList] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [idToRemove, setIdToRemove] = useState(null);
   const [alunoIdMap, setAlunoIdMap] = useState({});
   const [form, setForm] = useState({
@@ -27,6 +28,15 @@ export default function CadastrarTreinoAluno() {
     categoria: "0",
     subCategoria: "0",
     horario: "0",
+  });
+  const [editForm, setEditForm] = useState({
+    id: "",
+    idUsuario: "0",
+    nomeAluno: "0",
+    categoria: "0",
+    subCategoria: "0",
+    horario: "0",
+    data: "0",
   });
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(0);
@@ -39,10 +49,21 @@ export default function CadastrarTreinoAluno() {
 
   useEffect(() => {
     buscarTodosTreino();
-    buscarTodasSubCategorias();
     buscarTodasCategorias();
     getAllAluno();
   }, []);
+
+  useEffect(() => {
+    if (form.categoria !== "0") {
+      getSubCategoriaPorIdCategoria(form.categoria);
+    }
+  }, [form.categoria]);
+
+  useEffect(() => {
+    if (editForm.categoria !== "0") {
+      getSubCategoriaPorIdCategoria(editForm.categoria);
+    }
+  }, [editForm.categoria]);
 
   const buscarTodosTreino = async () => {
     const response = await api.get("/treino");
@@ -75,15 +96,6 @@ export default function CadastrarTreinoAluno() {
     }
   };
 
-  const buscarTodasSubCategorias = async () => {
-    const response = await api.get("/subCategoria");
-    if (response?.status !== 200) {
-      console.log("nenhuma sub-categoria encontrada");
-    } else {
-      setSubCategorias(response?.data);
-    }
-  };
-
   const getAllAluno = async () => {
     const response = await api.get("usuario");
     if (response?.status !== 200) {
@@ -101,11 +113,18 @@ export default function CadastrarTreinoAluno() {
     }
   };
 
+  const handleDateChange = (e) => {
+    setEditForm((prevForm) => ({
+      ...prevForm,
+      data: e.target.value,
+    }));
+  };
+
   const handleTimeChange = (time) => {
     setTime(time);
     setForm({
       ...form,
-      horario: `${date}  ${time}`,
+      horario: `${date} ${time}`,
     });
   };
 
@@ -129,6 +148,23 @@ export default function CadastrarTreinoAluno() {
       if (name === "nomeAluno") {
         newForm.idUsuario = alunoIdMap[value] || "0";
       }
+      if (name === "categoria") {
+        newForm.subCategoria = "0";
+      }
+      return newForm;
+    });
+  };
+
+  const handleEditForm = (e) => {
+    const { name, value } = e.target;
+    setEditForm((prevForm) => {
+      const newForm = { ...prevForm, [name]: value };
+      if (name === "nomeAluno") {
+        newForm.idUsuario = alunoIdMap[value] || "0";
+      }
+      if (name === "categoria") {
+        newForm.subCategoria = "0";
+      }
       return newForm;
     });
   };
@@ -140,6 +176,26 @@ export default function CadastrarTreinoAluno() {
       if (response?.status === 200) {
         buscarTodosTreino();
         setShowModalRegister(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleEditSubmit = async (values) => {
+    values.preventDefault();
+    try {
+      const response = await api.put(`/treino/atualizar`, {
+        ...editForm,
+        horario: `${editForm.data.split("-")?.reverse()?.join("/")} ${
+          editForm.horario
+        }`,
+      });
+      if (response?.status === 200) {
+        buscarTodosTreino();
+        const novoDados = getAlunoForData(date.split("/")?.join("-"));
+        setDados(novoDados?.data);
+        setShowEditModal(false);
       }
     } catch (error) {
       console.log(error);
@@ -186,11 +242,22 @@ export default function CadastrarTreinoAluno() {
     }
   };
 
+  const getSubCategoriaPorIdCategoria = async (categoriaId) => {
+    try {
+      const response = await api.get(`/subCategoria/categoria/${categoriaId}`);
+      if (response?.status === 200) {
+        setSubCategorias(response?.data);
+      }
+    } catch (error) {
+      console.log("Erro ao obter subCategorias");
+    }
+  };
+
   const getSubCategoriaPorId = async (id) => {
     try {
       const response = await api.get(`/subCategoria/${id}`);
       if (response?.status !== 200) {
-        console.log("Nenhuma sub-categoria encontrada");
+        console.log("Nenhuma sub-categoria enconftrada");
         return null;
       }
       return response?.data;
@@ -203,6 +270,22 @@ export default function CadastrarTreinoAluno() {
   const handleRemove = async (id) => {
     setShowConfirmationModal(true);
     setIdToRemove(id);
+  };
+
+  const handleEdit = async (id) => {
+    const treinoToEdit = await api.get(`/treino/${id}`);
+    if (treinoToEdit.status === 200) {
+      setEditForm({
+        id: treinoToEdit?.data?.id,
+        idUsuario: treinoToEdit?.data?.idUsuario,
+        nomeAluno: treinoToEdit?.data?.nomeAluno,
+        categoria: treinoToEdit?.data?.categoria,
+        subCategoria: treinoToEdit?.data?.subCategoria,
+        data: treinoToEdit?.data?.horario?.split(" ")[0],
+        horario: treinoToEdit?.data?.horario?.split(" ")[1],
+      });
+      setShowEditModal(true);
+    }
   };
 
   const confirmExclusion = async () => {
@@ -250,7 +333,7 @@ export default function CadastrarTreinoAluno() {
         }}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Adicionar treino: {date}</Modal.Title>
+          <Modal.Title>Cadastrar treino: {date}</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ display: "flex", justifyContent: "center" }}>
           <Form className="form-dados" onSubmit={handleSubmit}>
@@ -349,7 +432,117 @@ export default function CadastrarTreinoAluno() {
             colunas={colunas}
             data={dados}
             onRemove={(id) => handleRemove(id)}
+            onEdit={(id) => handleEdit(id)}
+            isAdmin={true}
           />
+          <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+            <Modal.Header closeButton>
+              <Modal.Title>Editar treino: {date}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form className="form-dados" onSubmit={handleEditSubmit}>
+                <Row>
+                  <Form.Label>Aluno: </Form.Label>
+                  <Form.Select
+                    size="lg"
+                    name="nomeAluno"
+                    value={editForm.nomeAluno}
+                    onChange={(e) => handleEditForm(e)}
+                  >
+                    <option key={"0"} value={"0"}>
+                      Selecione
+                    </option>
+                    {alunos?.map((aluno) => (
+                      <option
+                        key={aluno?.id}
+                        value={`${aluno?.nome} ${aluno?.sobreNome}`}
+                      >
+                        {aluno?.nome} {aluno?.sobreNome}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Row>
+                <Row>
+                  <Form.Label>Categoria: </Form.Label>
+                  <Form.Select
+                    size="lg"
+                    name="categoria"
+                    value={editForm.categoria}
+                    onChange={(e) => handleEditForm(e)}
+                  >
+                    <option key={"0"} value={"0"}>
+                      Selecione
+                    </option>
+                    {categorias?.map((categoria) => (
+                      <option key={categoria?.categoria} value={categoria?.id}>
+                        {categoria?.categoria}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Row>
+                <Row>
+                  <Form.Label>Sub-Categoria: </Form.Label>
+                  <Form.Select
+                    size="lg"
+                    name="subCategoria"
+                    value={editForm.subCategoria}
+                    onChange={(e) => handleEditForm(e)}
+                  >
+                    <option key={"0"} value={"0"}>
+                      Selecione
+                    </option>
+                    {subCategorias?.map((subCategoria) => (
+                      <option
+                        key={subCategoria?.subCategoria}
+                        value={subCategoria?.id}
+                      >
+                        {subCategoria?.subCategoria}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Row>
+                <Row>
+                  <Form.Label>Data: </Form.Label>
+                  <Form.Control
+                    type="date"
+                    value={editForm?.data
+                      ?.split(" ")[0]
+                      ?.split("/")
+                      ?.reverse()
+                      ?.join("-")}
+                    onChange={handleDateChange}
+                  />
+                </Row>
+                <Row>
+                  <Form.Label>Horário: </Form.Label>
+                  <TimePicker
+                    name="horario"
+                    start="05:00"
+                    end="22:00"
+                    step={60}
+                    value={editForm.horario.split(" ")[0]}
+                    onChange={(time) => {
+                      const newHorario = `${
+                        editForm.horario.split(" ")[1]
+                      } ${time}`;
+                      setEditForm((prevForm) => ({
+                        ...prevForm,
+                        horario: newHorario,
+                      }));
+                    }}
+                  />
+                </Row>
+
+                <Button
+                  className="button-registro"
+                  variant="primary"
+                  type="submit"
+                >
+                  Editar
+                </Button>
+              </Form>
+            </Modal.Body>
+          </Modal>
           <Modal
             show={showConfirmationModal}
             onHide={cancelExclusion}

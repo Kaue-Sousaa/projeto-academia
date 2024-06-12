@@ -34,6 +34,15 @@ public class SubCategoriaController {
 		return ResponseEntity.ok(service.buscarSubCategoriaPorId(id));
 	}
 	
+	@GetMapping(value = "categoria/{id}" ,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<SubCategoriaDto>> buscarSubCategoriaPorCategoria(@PathVariable Integer id){
+		var listSubCategoria = service.buscarSubCategoriaPorCategoria(id);
+		if(listSubCategoria.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(listSubCategoria);
+	}
+	
 	@PostMapping(value = "cadastro", consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> salvarSubCategoria(@RequestBody SubCategoriaDto subCategoria){

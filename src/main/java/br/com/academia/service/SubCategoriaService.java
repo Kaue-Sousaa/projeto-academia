@@ -27,6 +27,10 @@ public class SubCategoriaService {
 		return new SubCategoriaDto(subCategoria);
 	}
 	
+	public List<SubCategoriaDto> buscarSubCategoriaPorCategoria(Integer id) {
+		return repository.findByIdCategoria(id);
+	}
+	
 	public String salvarSubCategoria(SubCategoriaDto subCategoria) {
 		var entity = repository.findBySubCategoria(subCategoria.subCategoria());
 		if(entity != null) {
