@@ -7,13 +7,14 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PasswordLengthValidationImpl implements ValidaCadastroUsuarioStrategy{
+public class PasswordRequirementsValidationImpl implements ValidaCadastroUsuarioStrategy {
 
     @SneakyThrows
     @Override
     public void validarCampos(CadastroUsuarioDto cadastroUsuario) {
-        if(cadastroUsuario.senha().length() < 8 || cadastroUsuario.senha().length() > 12){
-            throw new InvalidPasswordException("A senha deve ter no mínimo 8 caracteres e no máximo 12 caracteres.");
-        }        
+        if(!cadastroUsuario.senha().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).+$")){
+            throw new InvalidPasswordException(
+                    "A senha deve ter pelo menos: 1 caractere minusculo, 1 caractere maiusculo, 1 numero e 1 caractere especial");
+        }
     }
 }

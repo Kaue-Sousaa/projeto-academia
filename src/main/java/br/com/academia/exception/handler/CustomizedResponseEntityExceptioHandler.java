@@ -1,11 +1,7 @@
 package br.com.academia.exception.handler;
 
-import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import br.com.academia.exception.*;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -15,20 +11,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-import com.auth0.jwt.exceptions.TokenExpiredException;
-
-import br.com.academia.exception.ExceptionResponse;
-import br.com.academia.exception.InvalidCpfLengthException;
-import br.com.academia.exception.InvalidJwtAuthenticationException;
-import br.com.academia.exception.InvalidPasswordException;
-import br.com.academia.exception.RequiredObjectIsNullException;
-import br.com.academia.exception.ResourceNotFoundException;
-import br.com.academia.exception.ValidFieldResponse;
+import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @RestControllerAdvice
 public class CustomizedResponseEntityExceptioHandler {
 	
-	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ExceptionHandler({MethodArgumentNotValidException.class})
     public final ResponseEntity<ValidFieldResponse> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException ex, 
             WebRequest request) {
@@ -41,7 +33,8 @@ public class CustomizedResponseEntityExceptioHandler {
         return buildResponseEntity(errorMessages, request);
     }
 
-    @ExceptionHandler({RequiredObjectIsNullException.class, InvalidCpfLengthException.class, InvalidPasswordException.class})
+    @ExceptionHandler({RequiredObjectIsNullException.class, InvalidCpfLengthException.class,
+			InvalidPasswordException.class, RequiredNameInvalidException.class, InvalidCpfException.class})
     public final ResponseEntity<ValidFieldResponse> handleOtherExceptions(
             Exception ex, 
             WebRequest request) {

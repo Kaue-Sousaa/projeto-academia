@@ -1,14 +1,14 @@
 package br.com.academia.strategy.CadastroUsuarioStrategy.impl;
 
-import org.springframework.stereotype.Component;
-
 import br.com.academia.dto.CadastroUsuarioDto;
 import br.com.academia.exception.InvalidPasswordException;
 import br.com.academia.strategy.CadastroUsuarioStrategy.ValidaCadastroUsuarioStrategy;
+import lombok.SneakyThrows;
+import org.springframework.stereotype.Component;
 
 @Component
 public class PasswordhValidationImpl implements ValidaCadastroUsuarioStrategy{
-
+    @SneakyThrows
     @Override
     public void validarCampos(CadastroUsuarioDto cadastroUsuario) {
         if(!isValidCampoConfirmSenha(cadastroUsuario.senha(), cadastroUsuario.confirmarSenha())){

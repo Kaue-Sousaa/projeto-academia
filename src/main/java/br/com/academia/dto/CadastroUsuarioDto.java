@@ -1,6 +1,7 @@
 package br.com.academia.dto;
 
 import br.com.academia.model.Usuario;
+import jakarta.validation.constraints.Pattern;
 
 public record CadastroUsuarioDto(
 		Integer id,
@@ -10,11 +11,13 @@ public record CadastroUsuarioDto(
 		String sobreNome,
 		
 		String email,
-		
+
+
 		String cpf,
 		
 		String dataNascimento,
 	
+
 		String telefone,
 		
 		String genero,
