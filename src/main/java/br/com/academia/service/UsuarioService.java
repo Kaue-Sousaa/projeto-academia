@@ -1,17 +1,17 @@
 package br.com.academia.service;
 
-import java.util.List;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import br.com.academia.dto.CadastroUsuarioDto;
+import br.com.academia.enums.UserRoleEn;
 import br.com.academia.exception.ResourceNotFoundException;
 import br.com.academia.model.Usuario;
 import br.com.academia.repository.UsuarioRepository;
 import br.com.academia.strategy.CadastroUsuarioStrategy.ValidaCadastroUsuarioStrategy;
 import br.com.academia.strategy.CadastroUsuarioStrategy.impl.PasswordhValidationImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,14 +22,22 @@ public class UsuarioService {
 	private final UsuarioRepository usuarioRepository;
 
 	public CadastroUsuarioDto buscarCadastroPorId(Integer id) {
-		var entity = usuarioRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
-		return criarUsuarioDto(entity);
+		return criarUsuarioDto(getUsuario(id));
 	}
 
 	public List<CadastroUsuarioDto> buscarTodosCadastro() {
-		var entity = usuarioRepository.findAll();
-		return entity.stream().map(CadastroUsuarioDto::new).toList();
+		return usuarioRepository.findAll()
+				.stream()
+				.map(CadastroUsuarioDto::new)
+				.toList();
+	}
+
+	public List<CadastroUsuarioDto> buscarTodosUsuario() {
+		return usuarioRepository.findAll()
+				.stream()
+				.map(CadastroUsuarioDto::new)
+				.filter(user -> user.role().equals(UserRoleEn.USER.getRole()))
+				.toList();
 	}
 
 	public CadastroUsuarioDto buscarUsarioPorEmail(String email) {
@@ -44,8 +52,7 @@ public class UsuarioService {
 
 	public CadastroUsuarioDto atualizarCadastro(CadastroUsuarioDto cliente) {
 		try {
-			var entity = usuarioRepository.findById(cliente.id())
-					.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+			var entity = getUsuario(cliente.id());
 
 			atualizarDadosDoCadastro(cliente, entity);
 
@@ -56,9 +63,7 @@ public class UsuarioService {
 	}
 
 	public void deletarUsuario(Integer id) {
-		var entity = usuarioRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
-		usuarioRepository.delete(entity);
+		usuarioRepository.delete(getUsuario(id));
 	}
 
 	private String salvarUsuario(CadastroUsuarioDto cadastroDto) {
@@ -92,5 +97,10 @@ public class UsuarioService {
 
 	private CadastroUsuarioDto criarUsuarioDto(Usuario entity) {
 		return new CadastroUsuarioDto(entity);
+	}
+
+	private Usuario getUsuario(Integer id) {
+        return usuarioRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 	}
 }

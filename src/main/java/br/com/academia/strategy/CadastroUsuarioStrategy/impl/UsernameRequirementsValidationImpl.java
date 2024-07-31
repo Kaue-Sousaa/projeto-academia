@@ -18,7 +18,7 @@ public class UsernameRequirementsValidationImpl implements ValidaCadastroUsuario
     }
 
     private boolean validateNomeAndSobreNome(String nome, String sobreNome){
-        return nome.matches("^[a-zA-Z]+$") &&
-                sobreNome.matches("^[a-zA-Z]+$");
+        return nome.matches("^[a-ã-zA-Z]+$") &&
+                sobreNome.matches("^[a-ã-zA-Z]+$");
     }
 }

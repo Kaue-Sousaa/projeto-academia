@@ -34,7 +34,8 @@ public class CustomizedResponseEntityExceptioHandler {
     }
 
     @ExceptionHandler({RequiredObjectIsNullException.class, InvalidCpfLengthException.class,
-			InvalidPasswordException.class, RequiredNameInvalidException.class, InvalidCpfException.class})
+			InvalidPasswordException.class, RequiredNameInvalidException.class,
+			InvalidCpfException.class, InvalidEmailException.class})
     public final ResponseEntity<ValidFieldResponse> handleOtherExceptions(
             Exception ex, 
             WebRequest request) {

@@ -11,9 +11,12 @@ import Header from "../../component/Header";
 import Footer from "../../component/Footer";
 
 import { useNavigate } from "react-router-dom";
+import { Toast } from "react-bootstrap";
 
 export default function Login() {
   const [form, setForm] = useState({});
+  const [error, setError] = useState("");
+  const [showToast, setShowToast] = useState(false);
   const handleSubmit = async (values) => {
     values.preventDefault();
     try {
@@ -26,8 +29,14 @@ export default function Login() {
         navigate("/home", {});
       }
     } catch (error) {
-      console.log(error);
+      setError(error?.response?.data?.message);
+      setShowToast(true);
     }
+  };
+
+  const handleCPFChange = (e) => {
+    const value = e.target.value.replace(/\D/g, "");
+    setForm({ ...form, [e.target.name]: value });
   };
 
   const navigate = useNavigate();
@@ -36,7 +45,7 @@ export default function Login() {
     <div className="body-container">
       <Header />
       <div className="login-container">
-        <Form /* validated={validated} */ onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <Form.Group as={Col} controlId="validationCustom01">
             <h1>Login</h1>
             <p className="login-subtitle">
@@ -47,9 +56,8 @@ export default function Login() {
               type="text"
               placeholder="CPF"
               name="cpf"
-              onChange={(e) => {
-                setForm({ ...form, [e.target.name]: e.target.value });
-              }}
+              value={form.cpf || ""}
+              onChange={handleCPFChange}
             />
             <Form.Control
               type="password"
@@ -78,6 +86,23 @@ export default function Login() {
       </div>
       <div>
         <Footer />
+        <Toast
+          onClose={() => setShowToast(false)}
+          show={showToast}
+          delay={3000}
+          autohide
+          style={{
+            position: "fixed",
+            top: 20,
+            right: 20,
+            zIndex: 8000,
+          }}
+        >
+          <Toast.Header>
+            <strong className="me-auto">Erro ao fazer login</strong>
+          </Toast.Header>
+          <Toast.Body>{error}</Toast.Body>
+        </Toast>
       </div>
     </div>
   );

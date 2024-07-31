@@ -39,7 +39,7 @@ public class AuthService {
 
 	private void validatedCpfLength(String cpf) {
 		if(cpf.length() != 11){
-			throw new InvalidCpfLengthException("Cpf tamanho inválido");
+			throw new InvalidCpfLengthException("CPF tamanho inválido");
 		}
 	}
 }

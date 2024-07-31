@@ -1,31 +1,18 @@
 package br.com.academia.dto;
 
 import br.com.academia.model.Usuario;
-import jakarta.validation.constraints.Pattern;
 
 public record CadastroUsuarioDto(
 		Integer id,
-		
 		String nome,
-		
 		String sobreNome,
-		
 		String email,
-
-
 		String cpf,
-		
 		String dataNascimento,
-	
-
 		String telefone,
-		
 		String genero,
-		
 		String senha,
-		
 		String confirmarSenha,
-		
 		String role
 		
 		) {

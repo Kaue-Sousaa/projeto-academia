@@ -14,7 +14,7 @@ public class PasswordRequirementsValidationImpl implements ValidaCadastroUsuario
     public void validarCampos(CadastroUsuarioDto cadastroUsuario) {
         if(!cadastroUsuario.senha().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).+$")){
             throw new InvalidPasswordException(
-                    "A senha deve ter pelo menos: 1 caractere minusculo, 1 caractere maiusculo, 1 numero e 1 caractere especial");
+                    "A senha deve ter pelo menos: 1 caractere minúsculo, 1 caractere maiúsculo, 1 número e 1 caractere especial");
         }
     }
 }

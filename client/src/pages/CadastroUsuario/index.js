@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Col, Row, Modal } from "react-bootstrap";
+import InputMask from "react-input-mask";
 
 import api from "../../services/api";
 
@@ -8,8 +9,12 @@ import Footer from "../../component/Footer";
 
 import "./styles.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Toast } from "react-bootstrap";
 
 export default function RegistroUsuario() {
+  const [messageTitle, setMessageTitle] = useState("");
+  const [messageBody, setMessageBody] = useState("");
+  const [showToast, setShowToast] = useState(false);
   const [formData, setFormData] = useState({
     nome: "",
     sobreNome: "",
@@ -36,11 +41,17 @@ export default function RegistroUsuario() {
       event.preventDefault();
       const response = await api.post("/usuario/cadastro", formData);
       if (response.status === 200) {
-        navigate("/login", {});
+        setMessageTitle("Sucesso");
+        setMessageBody("Cadastrado realizado com sucesso");
+        setShowToast(true);
+        setTimeout(() => {
+          navigate("/login", {});
+        }, 3000);
       }
-      console.log(response.data);
     } catch (error) {
-      console.log(error);
+      setMessageTitle("Erro ao fazer cadastro");
+      setMessageBody(error?.response?.data?.message);
+      setShowToast(true);
     }
   };
 
@@ -97,6 +108,11 @@ export default function RegistroUsuario() {
     setShowModal(!showModal);
   };
 
+  const handleCPFChange = (e) => {
+    const value = e.target.value.replace(/\D/g, "");
+    setFormData({ ...formData, [e.target.name]: value });
+  };
+
   return (
     <div className="registro-container">
       <div className="body-container">
@@ -149,7 +165,7 @@ export default function RegistroUsuario() {
                 type="text"
                 name="cpf"
                 value={formData.cpf}
-                onChange={(e) => handleFormEdit(e, "cpf")}
+                onChange={handleCPFChange}
                 required
               />
             </Form.Group>
@@ -172,6 +188,7 @@ export default function RegistroUsuario() {
                 <Form.Group controlId="telefone">
                   <Form.Label>Telefone</Form.Label>
                   <Form.Control
+                    masc
                     type="tel"
                     name="telefone"
                     value={formData.telefone}
@@ -302,6 +319,23 @@ export default function RegistroUsuario() {
           </section>
         </Modal.Body>
       </Modal>
+      <Toast
+        onClose={() => setShowToast(false)}
+        show={showToast}
+        delay={5000}
+        autohide
+        style={{
+          position: "fixed",
+          top: 20,
+          right: 20,
+          zIndex: 1000,
+        }}
+      >
+        <Toast.Header>
+          <strong className="me-auto">{messageTitle}</strong>
+        </Toast.Header>
+        <Toast.Body>{messageBody}</Toast.Body>
+      </Toast>
     </div>
   );
 }
