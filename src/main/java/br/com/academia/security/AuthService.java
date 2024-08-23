@@ -21,13 +21,17 @@ public class AuthService {
 
 	@SuppressWarnings("rawtypes")
 	public ResponseEntity login(AuthenticationDto login) {
-		authentication(login);
-		var usuario = repository.findByCpf(login.cpf());
-		if (usuario != null) {
-			return ResponseEntity.ok(
-					tokenService.createAccessToken(login.cpf(), List.of(usuario.getRole()), usuario));
-		} else {
-			throw new UsernameNotFoundException("CPF " + login.cpf() + " não encontrado!");
+		try {
+			authentication(login);
+			var usuario = repository.findByCpf(login.cpf());
+			if (usuario != null) {
+				return ResponseEntity.ok(
+						tokenService.createAccessToken(login.cpf(), List.of(usuario.getRole()), usuario));
+			} else {
+				throw new UsernameNotFoundException("CPF " + login.cpf() + " não encontrado!");
+			}
+		}catch (Exception ex) {
+			throw new UsernameNotFoundException("Usuário inexistente ou senha inválida.");
 		}
 	}
 

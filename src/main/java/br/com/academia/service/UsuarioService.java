@@ -33,16 +33,14 @@ public class UsuarioService {
 	}
 
 	public List<CadastroUsuarioDto> buscarTodosUsuario() {
-		return usuarioRepository.findAll()
-				.stream()
-				.map(CadastroUsuarioDto::new)
+		return buscarTodosCadastro().stream()
 				.filter(user -> user.role().equals(UserRoleEn.USER.getRole()))
 				.toList();
 	}
 
 	public CadastroUsuarioDto buscarUsarioPorEmail(String email) {
 		return criarUsuarioDto(usuarioRepository.findByEmail(email)
-				.orElseThrow(() -> new ResourceNotFoundException("Usuário nâo encontrado")));
+				.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado")));
 	}
 
 	public String salvarCadastro(CadastroUsuarioDto cadastroDto) {
@@ -67,7 +65,7 @@ public class UsuarioService {
 	}
 
 	private String salvarUsuario(CadastroUsuarioDto cadastroDto) {
-		Usuario cadastroUsuario = new Usuario(cadastroDto);
+		var cadastroUsuario = new Usuario(cadastroDto);
 		cadastroUsuario.setSenha(passwordEncoder(cadastroDto.senha()));
 		usuarioRepository.save(cadastroUsuario);
 		return "Usuário cadastrado com sucesso!";

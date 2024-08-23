@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Col, Row, Modal } from "react-bootstrap";
-import InputMask from "react-input-mask";
-
 import api from "../../services/api";
 
 import Header from "../../component/Header";

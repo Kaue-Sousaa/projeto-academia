@@ -1,27 +1,18 @@
 package br.com.academia.model;
 
-import java.util.Collection;
-import java.util.List;
-
+import br.com.academia.dto.CadastroUsuarioDto;
+import br.com.academia.enums.UserRoleEn;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import br.com.academia.dto.CadastroUsuarioDto;
-import br.com.academia.enums.UserRoleEn;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.io.Serial;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -30,6 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Usuario implements UserDetails{
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -60,8 +52,7 @@ public class Usuario implements UserDetails{
 	
 	@Column(name = "senha")
 	private String senha;
-	
-	@JsonIgnoreProperties
+
 	@Transient
 	private String confirmarSenha;
 	
